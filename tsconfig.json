@@ -15,6 +15,14 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ai-angular2": [
+        "dist/ai-angular2"
+      ],
+      "ai-angular2/*": [
+        "dist/ai-angular2/*"
+      ]
+    }
   }
 }
