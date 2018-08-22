@@ -13,8 +13,8 @@ export * from './http/http.service';
 export * from './polyfills';
 
 @NgModule({
-  imports: [],
-  declarations: []
+    imports: [],
+    declarations: []
 })
 export class HttpModule {
 }
