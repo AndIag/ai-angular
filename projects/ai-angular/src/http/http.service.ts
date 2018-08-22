@@ -12,6 +12,7 @@ export class HttpService extends HttpClient {
     super(handler);
   }
 
+  // tslint:disable-next-line:no-any
   static handleHttpError(context: any, err: HttpErrorResponse): void {
     console.log(context, err);
     if (context instanceof BaseHttpHandler) {

@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs/index';
+import {Observable, throwError} from 'rxjs';
 import {Router} from '@angular/router';
 import {catchError} from 'rxjs/internal/operators';
 import HttpStatusCode from '../utils/http-status-codes';
 
-export const UNAVAILABLE = 'unavailable';
+export const NOT_FOUND = 'not-found';
 
 @Injectable({
   providedIn: 'root'
 })
-export class HttpErrorInterceptor implements HttpInterceptor {
+export class HttpNotFoundInterceptor implements HttpInterceptor {
 
   constructor(private router: Router) {
   }
@@ -19,11 +19,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     return next.handle(request)
       .pipe(catchError(
         (err: HttpErrorResponse) => {
-          if (err.status === HttpStatusCode.HTTP_502_BAD_GATEWAY
-            || err.status === HttpStatusCode.HTTP_503_SERVICE_UNAVAILABLE
-            || err.status === HttpStatusCode.NO_STATE) {
-
-            this.router.navigate([UNAVAILABLE]);
+          if (err.status === HttpStatusCode.HTTP_404_NOT_FOUND) {
+            this.router.navigate([NOT_FOUND]);
             return throwError(err);
           }
           return throwError(err);

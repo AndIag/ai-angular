@@ -1,5 +1,5 @@
 import {Observable} from 'rxjs/internal/Observable';
-import {AINotificationsService, NotificationTypes} from './utils/notification.interface';
+import {AINotificationsService, NotificationTypes} from './utils';
 import {hasOwnProp} from '../polyfills';
 
 export abstract class BaseHttpHandler {
