@@ -1,4 +1,6 @@
 export * from './http-error.callback';
+export * from './http200.callback';
+export * from './http201.callback';
 export * from './http400.callback';
 export * from './http402.callback';
 export * from './http403.callback';
