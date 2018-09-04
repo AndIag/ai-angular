@@ -1,0 +1,17 @@
+{
+  "ngPackage": {
+    "lib": {
+      "entryFile": "index.ts",
+      "umdModuleIds": {
+        "ngx-bootstrap/datepicker": "ngx-bootstrap/datepicker"
+      }
+    }
+  },
+  "peerDependencies": {
+    "@angular/common": "^6.1.0",
+    "@angular/forms": "^6.1.0",
+    "bootstrap": "^4.1.2",
+    "ngx-bootstrap": "^3.0.0",
+    "rxjs": "^6.0.0"
+  }
+}

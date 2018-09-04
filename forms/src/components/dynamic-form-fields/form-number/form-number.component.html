@@ -1,0 +1,12 @@
+<div class="dynamic-field input-group" [formGroup]="group">
+  <div class="input-group-prepend" *ngIf="config.addon_left">
+    <span class="input-group-text material-icons">{{ config.addon_left }}</span>
+  </div>
+  <label *ngIf="config.label">{{ config.label }}</label>
+  <input type="number" class="form-control" [ngClass]="{'is-valid': control.valid, 'is-invalid': control.invalid}"
+         [attr.placeholder]="config.placeholder + ( required() ? ' *' : '')"
+         [formControlName]="config.name">
+  <div class="input-group-append" *ngIf="config.addon_right">
+    <span class="input-group-text material-icons">{{ config.addon_right }}</span>
+  </div>
+</div>

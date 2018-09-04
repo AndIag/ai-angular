@@ -1,0 +1,11 @@
+{
+  "ngPackage": {
+    "lib": {
+      "entryFile": "index.ts"
+    }
+  },
+  "peerDependencies": {
+    "@angular/http": "^6.1.0",
+    "rxjs": "^6.0.0"
+  }
+}
