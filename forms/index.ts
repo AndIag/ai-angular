@@ -61,6 +61,7 @@ const formComponents = [
   ],
   exports: [
     DynamicFormComponent,
+    AutosizeDirective,
   ],
   entryComponents: [
     ...formComponents
