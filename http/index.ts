@@ -27,6 +27,7 @@ export * from './src/interceptors/http-not-found.interceptor';
 // Utils
 export * from './src/utils/http-status-codes';
 export * from './src/utils/notification.interface';
+export * from './src/utils/translation.interface';
 
 @NgModule({
   imports: [],
