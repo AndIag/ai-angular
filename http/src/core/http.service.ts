@@ -57,19 +57,19 @@ export class HttpService extends HttpClient {
   }
 
   // tslint:disable-next-line:no-any
-  public static handleHttpSuccess(context: any, title?: string, message?: string, status?: number): void {
+  public static handleHttpSuccess(context: any, status: number = null, title?: string, message?: string, interpolateParams?: Object): void {
     if (context instanceof BaseHttpHandler) {
       switch (status) {
         case HttpStatusCode.HTTP_200_OK: {
-          context.onHttp200(title, message);
+          context.onHttp200(title, message, interpolateParams);
           break;
         }
         case HttpStatusCode.HTTP_201_CREATED: {
-          context.onHttp201(title, message);
+          context.onHttp201(title, message, interpolateParams);
           break;
         }
         default: {
-          context.onHttpSuccess(title, message);
+          context.onHttpSuccess(title, message, interpolateParams);
           break;
         }
       }

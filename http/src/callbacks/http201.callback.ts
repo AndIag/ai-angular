@@ -1,3 +1,3 @@
 export interface Http201Callback {
-  onHttp201(title: string, message: string): void;
+  onHttp201(title: string, message: string, interpolateParams?: Object): void;
 }

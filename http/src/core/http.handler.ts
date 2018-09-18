@@ -26,22 +26,22 @@ export abstract class BaseHttpHandler implements Http200Callback, Http201Callbac
   }
 
 
-  public onHttp200(title: string, message: string): void {
-    this.translations().get([title, message]).subscribe(res => {
+  public onHttp200(title: string, message: string, interpolateParams?: Object): void {
+    this.translations().get([title, message], interpolateParams).subscribe(res => {
       this.notifications().showAlert(res[title], res[message], NotificationTypes.SUCCESS);
     });
     this.onSuccess();
   }
 
-  public onHttp201(title: string, message: string): void {
-    this.translations().get([title, message]).subscribe(res => {
+  public onHttp201(title: string, message: string, interpolateParams?: Object): void {
+    this.translations().get([title, message], interpolateParams).subscribe(res => {
       this.notifications().showAlert(res[title], res[message], NotificationTypes.SUCCESS);
     });
     this.onSuccess();
   }
 
-  public onHttpSuccess(title: string, message: string): void {
-    this.translations().get([title, message]).subscribe(res => {
+  public onHttpSuccess(title: string, message: string, interpolateParams?: Object): void {
+    this.translations().get([title, message], interpolateParams).subscribe(res => {
       this.notifications().showAlert(res[title], res[message], NotificationTypes.SUCCESS);
     });
     this.onSuccess();
