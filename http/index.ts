@@ -29,6 +29,8 @@ export * from './src/utils/http-status-codes';
 export * from './src/utils/notification.interface';
 export * from './src/utils/translation.interface';
 
+export {hasOwnProp} from './src/polyfills';
+
 @NgModule({
   imports: [],
   declarations: []
