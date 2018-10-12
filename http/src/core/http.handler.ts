@@ -28,6 +28,7 @@ export abstract class BaseHttpHandler implements Http200Callback, Http201Callbac
 
   public onHttp200(title: string, message: string, interpolateParams?: Object): void {
     this.translations().get([title, message], interpolateParams).subscribe(res => {
+      this.notifications().clear();
       this.notifications().showAlert(res[title], res[message], NotificationTypes.SUCCESS);
     });
     this.onSuccess();
@@ -35,6 +36,7 @@ export abstract class BaseHttpHandler implements Http200Callback, Http201Callbac
 
   public onHttp201(title: string, message: string, interpolateParams?: Object): void {
     this.translations().get([title, message], interpolateParams).subscribe(res => {
+      this.notifications().clear();
       this.notifications().showAlert(res[title], res[message], NotificationTypes.SUCCESS);
     });
     this.onSuccess();
@@ -42,6 +44,7 @@ export abstract class BaseHttpHandler implements Http200Callback, Http201Callbac
 
   public onHttpSuccess(title: string, message: string, interpolateParams?: Object): void {
     this.translations().get([title, message], interpolateParams).subscribe(res => {
+      this.notifications().clear();
       this.notifications().showAlert(res[title], res[message], NotificationTypes.SUCCESS);
     });
     this.onSuccess();
@@ -49,6 +52,7 @@ export abstract class BaseHttpHandler implements Http200Callback, Http201Callbac
 
   public onHttp400(value: { [p: string]: string[] } | { error: string }): void {
     this.translations().get(['MESSAGE.ERROR']).subscribe(res => {
+      this.notifications().clear();
       hasOwnProp(value, 'error')
         ? this.notifications().showAlert(res['MESSAGE.ERROR'], (value as { error: string }).error, NotificationTypes.ERROR)
         : this.notifications().showAlerts(value as { [p: string]: string[] }, NotificationTypes.ERROR);
@@ -64,6 +68,7 @@ export abstract class BaseHttpHandler implements Http200Callback, Http201Callbac
 
   public onHttp403(value: { error: string }) {
     this.translations().get(['MESSAGE.ERROR']).subscribe(res => {
+      this.notifications().clear();
       this.notifications().showAlert(res['MESSAGE.ERROR'], value.error, NotificationTypes.ERROR);
     });
     this.onError(value);
@@ -71,6 +76,7 @@ export abstract class BaseHttpHandler implements Http200Callback, Http201Callbac
 
   public onHttp404(value: { error: string }) {
     this.translations().get(['MESSAGE.ERROR']).subscribe(res => {
+      this.notifications().clear();
       this.notifications().showAlert(res['MESSAGE.ERROR'], value.error, NotificationTypes.ERROR);
     });
     this.onError(value);
@@ -78,6 +84,7 @@ export abstract class BaseHttpHandler implements Http200Callback, Http201Callbac
 
   public onHttp413(value: { error: string }) {
     this.translations().get(['MESSAGE.ERROR']).subscribe(res => {
+      this.notifications().clear();
       this.notifications().showAlert(res['MESSAGE.ERROR'], value.error, NotificationTypes.ERROR);
     });
     this.onError(value);
@@ -86,6 +93,7 @@ export abstract class BaseHttpHandler implements Http200Callback, Http201Callbac
   public onHttpError(value: string | { error: string }, readable = true) {
     if (readable) {
       this.translations().get(['MESSAGE.ERROR']).subscribe(res => {
+        this.notifications().clear();
         (hasOwnProp(value, 'error'))
           ? this.notifications().showAlert(res['MESSAGE.ERROR'], (value as { error: string }).error, NotificationTypes.ERROR)
           : this.notifications().showAlert(res['MESSAGE.ERROR'], value as string, NotificationTypes.ERROR);
