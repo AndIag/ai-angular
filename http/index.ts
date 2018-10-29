@@ -1,4 +1,5 @@
 import {NgModule} from '@angular/core';
+import {HttpClientModule} from '@angular/common/http';
 
 /*
  * Public API Surface of lib
@@ -32,8 +33,8 @@ export * from './src/utils/translation.interface';
 export {hasOwnProp} from './src/polyfills';
 
 @NgModule({
-  imports: [],
-  declarations: []
+  imports: [HttpClientModule],
+  exports: [HttpClientModule]
 })
 export class HttpModule {
 }
