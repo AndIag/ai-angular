@@ -85,6 +85,18 @@ export class DynamicFormComponent implements OnChanges, OnInit, AfterViewInit {
     }
   }
 
+  public patchValue(name: string, value: any, options?: Object) {
+    if (this.form.controls[name]) {
+      this.form.controls[name].patchValue(value, options);
+      this.config = this.config.map((item) => {
+        if (item.name === name) {
+          item.value = value;
+        }
+        return item;
+      });
+    }
+  }
+
   public setDisabled(name: string, disable: boolean) {
     if (this.form.controls[name]) {
       const method = disable ? 'disable' : 'enable';
