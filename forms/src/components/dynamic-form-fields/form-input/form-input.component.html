@@ -9,7 +9,7 @@
   <div class="input-group-append" *ngIf="config.addon_right">
     <span class="input-group-text material-icons" *ngIf="!config.action">{{ config.addon_right }}</span>
     <button class="btn btn-dark text-primary" type="button" *ngIf="config.action" (click)="onClickAction()">
-      <i class="material-icons">{{config.addon_right}}</i>
+      <i class="material-icons">{{ config.addon_right }}</i>
     </button>
   </div>
 </div>

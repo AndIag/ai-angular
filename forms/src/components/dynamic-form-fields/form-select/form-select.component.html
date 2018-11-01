@@ -3,7 +3,7 @@
   <select #select class="form-control" [formControlName]="config.name"
           [ngClass]="{'is-valid': control.valid, 'is-invalid': control.invalid, 'text-placeholder': !control.value}">
     <option value="" [selected]="true" class="text-placeholder">
-      {{ config.placeholder + ( control.invalid ? ' *' : '')}}
+      {{ config.placeholder + ( control.invalid ? ' *' : '') }}
     </option>
     <option *ngFor="let option of config.options">
       {{ config.option_key ? option[config.option_key] : option }}
