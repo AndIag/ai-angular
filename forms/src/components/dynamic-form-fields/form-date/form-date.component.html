@@ -7,7 +7,7 @@
          [ngClass]="{'is-valid': control.valid, 'is-invalid': control.invalid}"
          [attr.placeholder]="config.placeholder + ( required() ? ' *' : '')"
          [formControlName]="config.name"
-         [bsConfig]="{ locale: locale, containerClass: 'theme-default' }">
+         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }">
   <div class="input-group-append" *ngIf="config.addon_right">
     <span class="input-group-text material-icons">{{ config.addon_right }}</span>
   </div>
