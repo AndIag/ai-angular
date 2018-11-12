@@ -22,7 +22,7 @@ export abstract class BaseHttpHandler implements Http200Callback, Http201Callbac
   protected onSuccess(): void {
   }
 
-  protected onError(error?: { error: string } | string): void {
+  protected onError(error?: string | { error: string[] | string } | { [key: string]: string }): void {
   }
 
 
@@ -90,15 +90,43 @@ export abstract class BaseHttpHandler implements Http200Callback, Http201Callbac
     this.onError(value);
   }
 
-  public onHttpError(value: string | { error: string }, readable = true) {
+  public onHttpError(value: string | { error: string[] | string } | { [key: string]: string }, readable = true) {
     if (readable) {
       this.translations().get(['MESSAGE.ERROR']).subscribe(res => {
         this.notifications().clear();
-        (hasOwnProp(value, 'error'))
-          ? this.notifications().showAlert(res['MESSAGE.ERROR'], (value as { error: string }).error, NotificationTypes.ERROR)
-          : this.notifications().showAlert(res['MESSAGE.ERROR'], value as string, NotificationTypes.ERROR);
+        this._showError(res, value);
       });
     }
     this.onError(value);
   }
+
+  private _showError(res: { [name: string]: string }, value: string | { error: string[] | string } | { [key: string]: string }) {
+    if (value) {
+      if (typeof value === 'string') {
+        // Error is a simple string
+        this.notifications().showAlert(res['MESSAGE.ERROR'], value as string, NotificationTypes.ERROR);
+      } else if (hasOwnProp(value, 'error')) {
+        // Error is an object containing an error or a list of errors
+        if (Array.isArray((value as { error: string[] | string }).error)) {
+          this.notifications().showAlerts(value as { error: string[] }, NotificationTypes.ERROR);
+        } else {
+          this.notifications().showAlert(res['MESSAGE.ERROR'], (value as { error: string }).error, NotificationTypes.ERROR);
+        }
+      } else {
+        // Error is an object containing named errors
+        Object.keys(value as { [key: string]: string[] | string }).forEach(
+          key => {
+            if (Array.isArray(value[key])) {
+              (value[key] as string[]).forEach(
+                error => this.notifications().showAlert(res['MESSAGE.ERROR'], error, NotificationTypes.ERROR)
+              );
+            } else {
+              this.notifications().showAlert(res['MESSAGE.ERROR'], value[key], NotificationTypes.ERROR);
+            }
+          }
+        );
+      }
+    }
+  }
+
 }
