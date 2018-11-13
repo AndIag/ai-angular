@@ -50,16 +50,12 @@ export abstract class BaseHttpHandler implements Http200Callback, Http201Callbac
     this.onSuccess();
   }
 
-  public onHttp400(value: { [p: string]: string[] } | { error: string }): void {
+  public onHttp400(value: string | { error: string[] | string } | { [key: string]: string }): void {
     this.translations().get(['MESSAGE.ERROR']).subscribe(res => {
       this.notifications().clear();
-      hasOwnProp(value, 'error')
-        ? this.notifications().showAlert(res['MESSAGE.ERROR'], (value as { error: string }).error, NotificationTypes.ERROR)
-        : this.notifications().showAlerts(value as { [p: string]: string[] }, NotificationTypes.ERROR);
+      this._showError(res, value);
     });
-    hasOwnProp(value, 'error')
-      ? this.onError(value as { error: string })
-      : this.onError();
+    this.onError(value);
   }
 
   public onHttp402(value: { errors: string[]; data?: any }): void {
@@ -117,9 +113,7 @@ export abstract class BaseHttpHandler implements Http200Callback, Http201Callbac
         Object.keys(value as { [key: string]: string[] | string }).forEach(
           key => {
             if (Array.isArray(value[key])) {
-              (value[key] as string[]).forEach(
-                error => this.notifications().showAlert(res['MESSAGE.ERROR'], error, NotificationTypes.ERROR)
-              );
+              this.notifications().showAlerts(value as { [key: string]: string[] }, NotificationTypes.ERROR);
             } else {
               this.notifications().showAlert(res['MESSAGE.ERROR'], value[key], NotificationTypes.ERROR);
             }
