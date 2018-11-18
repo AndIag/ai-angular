@@ -19,7 +19,7 @@ export class DynamicFormComponent implements OnChanges, OnInit, AfterViewInit {
   public form: FormGroup;
 
   get controls(): FieldConfig[] {
-    return this.config.filter(({type}) => type !== 'button');
+    return this.config.filter(({type}) => type !== 'button' && type !== 'separator');
   }
 
   get changes(): Observable<any> {
@@ -74,7 +74,7 @@ export class DynamicFormComponent implements OnChanges, OnInit, AfterViewInit {
 
   public createControl(config: FieldConfig): FormControl {
     const {disabled, validation, value} = config;
-    return this.fb.control({disabled, value}, validation);
+    return this.fb.control({value: value, disabled: disabled}, validation);
   }
 
   public handleSubmit(event: Event) {
@@ -113,7 +113,11 @@ export class DynamicFormComponent implements OnChanges, OnInit, AfterViewInit {
   }
 
   public reset() {
-    this.form.reset();
+    const rvalue = this.config.filter(x => x.type === 'checkbox').reduce((acc, item) => {
+      acc[item.name] = item.value || false;
+      return acc;
+    }, {});
+    this.form.reset(rvalue);
   }
 
 }
