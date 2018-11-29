@@ -58,6 +58,14 @@ export abstract class BaseHttpHandler implements Http200Callback, Http201Callbac
     this.onError(value);
   }
 
+  public onHttp401(value: { error: string, error_description: string }) {
+    this.translations().get(['MESSAGE.ERROR']).subscribe(res => {
+      this.notifications().clear();
+      this.notifications().showAlert(res['MESSAGE.ERROR'], value.error_description, NotificationTypes.ERROR);
+    });
+    this.onError(value);
+  }
+
   public onHttp402(value: { errors: string[]; data?: any }): void {
     this.onError();
   }

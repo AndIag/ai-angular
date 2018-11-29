@@ -20,6 +20,10 @@ export class HttpService extends HttpClient {
           context.onHttp400(err.error);
           break;
         }
+        case HttpStatusCode.HTTP_401_UNAUTHORIZED: {
+          context.onHttp401(err.error);
+          break;
+        }
         case HttpStatusCode.HTTP_402_PAYMENT_REQUIRED: {
           context.onHttp402(err.error);
           break;
