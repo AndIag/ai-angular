@@ -1,4 +1,10 @@
-export class DynamicFormAction {
+export interface Action {
+  context: any;
+  retryFunction: string;
+  args: any[];
+}
+
+export class DynamicFormAction implements Action {
   public context: any;
   public retryFunction: string;
   public args: any[];
