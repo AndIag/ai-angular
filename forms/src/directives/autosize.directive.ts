@@ -1,137 +1,101 @@
-import {AfterViewInit, Directive, ElementRef, HostBinding, HostListener, Input} from '@angular/core';
-import {AbstractControl} from '@angular/forms';
+import {AfterContentChecked, Directive, ElementRef, HostListener, Input} from '@angular/core';
 
+const MAX_LOOKUP_RETRIES = 3;
 
 @Directive({
   selector: 'textarea[autosize]',
 })
-export class AutosizeDirective implements AfterViewInit {
-  /** Keep track of the previous textarea value to avoid resizing when the value hasn't changed. */
-  private _previousValue: string;
+export class AutosizeDirective implements AfterContentChecked {
+  @Input() public minRows: number;
+  @Input() public maxRows: number;
 
-  private _minRows: number;
-  private _maxRows: number;
+  private retries = 0;
+  private textAreaEl: any;
 
-  /** Cached height of a textarea with a single row. */
-  private _cachedLineHeight: number;
-
-  // tslint:disable-next-line:no-input-rename
-  @Input('control') private _control: AbstractControl;
-
-  // Textarea elements that have the directive applied should have a single row by default.
-  // Browsers normally show two rows by default and therefore this limits the minRows binding.
-  @HostBinding('attr.rows') get rows() {
-    return '1';
+  @HostListener('input', ['$event.target'])
+  public onInput(textArea: HTMLTextAreaElement) {
+    this.adjust();
   }
 
-  @HostListener('input', ['$event'])
-  public onTextareaInput(event) {
-    this.resizeToFitContent();
-  }
+  constructor(public element: ElementRef) {
+    if (this.element.nativeElement.tagName !== 'TEXTAREA') {
+      this._findNestedTextArea();
 
-  @Input('autosizeMinRows')
-  get minRows() {
-    return this._minRows;
-  }
-
-  set minRows(value: number) {
-    this._minRows = value;
-    this._setMinHeight();
-  }
-
-  @Input('autosizeMaxRows')
-  get maxRows() {
-    return this._maxRows;
-  }
-
-  set maxRows(value: number) {
-    this._maxRows = value;
-    this._setMaxHeight();
-  }
-
-  constructor(private _elementRef: ElementRef) {
-  }
-
-  /** Sets the minimum height of the textarea as determined by minRows. */
-  public _setMinHeight(): void {
-    const minHeight = this.minRows && this._cachedLineHeight ?
-      `${this.minRows * this._cachedLineHeight}px` : null;
-
-    if (minHeight) {
-      this._setTextareaStyle('minHeight', minHeight);
+    } else {
+      this.textAreaEl = this.element.nativeElement;
+      this.textAreaEl.style.overflow = 'hidden';
     }
   }
 
-  /** Sets the maximum height of the textarea as determined by maxRows. */
-  public _setMaxHeight(): void {
-    const maxHeight = this.maxRows && this._cachedLineHeight ?
-      `${this.maxRows * this._cachedLineHeight}px` : null;
+  public _findNestedTextArea() {
+    this.textAreaEl = this.element.nativeElement.querySelector('TEXTAREA');
 
-    if (maxHeight) {
-      this._setTextareaStyle('maxHeight', maxHeight);
+    if (!this.textAreaEl && this.element.nativeElement.shadowRoot) {
+      this.textAreaEl = this.element.nativeElement.shadowRoot.querySelector('TEXTAREA');
     }
-  }
 
-  public ngAfterViewInit() {
-    this._cacheTextareaLineHeight();
-    this.resizeToFitContent();
-    this._control.valueChanges.subscribe(() => this.resizeToFitContent());
-  }
+    if (!this.textAreaEl) {
+      if (this.retries >= MAX_LOOKUP_RETRIES) {
+        console.warn('autosize: textarea not found');
 
-  /** Sets a style property on the textarea element. */
-  private _setTextareaStyle(property: string, value: string): void {
-    const textarea = this._elementRef.nativeElement as HTMLTextAreaElement;
-    textarea.style[property] = value;
-  }
-
-  /**
-   * Cache the height of a single-row textarea.
-   *
-   * We need to know how large a single "row" of a textarea is in order to apply minRows and
-   * maxRows. For the initial version, we will assume that the height of a single line in the
-   * textarea does not ever change.
-   */
-  private _cacheTextareaLineHeight(): void {
-    const textarea = this._elementRef.nativeElement as HTMLTextAreaElement;
-
-    // Use a clone element because we have to override some styles.
-    const textareaClone = textarea.cloneNode(false) as HTMLTextAreaElement;
-    textareaClone.rows = 1;
-
-    // Use `position: absolute` so that this doesn't cause a browser layout and use
-    // `visibility: hidden` so that nothing is rendered. Clear any other styles that
-    // would affect the height.
-    textareaClone.style.position = 'absolute';
-    textareaClone.style.visibility = 'hidden';
-    textareaClone.style.border = 'none';
-    textareaClone.style.padding = '0';
-    textareaClone.style.height = '';
-    textareaClone.style.minHeight = '';
-    textareaClone.style.maxHeight = '';
-
-    textarea.parentNode!.appendChild(textareaClone);
-    this._cachedLineHeight = textareaClone.clientHeight;
-    textarea.parentNode!.removeChild(textareaClone);
-
-    // Min and max heights have to be re-calculated if the cached line height changes
-    this._setMinHeight();
-    this._setMaxHeight();
-  }
-
-  /** Resize the textarea to fit its content. */
-  public resizeToFitContent() {
-    const textarea = this._elementRef.nativeElement as HTMLTextAreaElement;
-
-    if (textarea.value === '' && !this._previousValue || textarea.value === this._previousValue) {
+      } else {
+        this.retries++;
+        setTimeout(() => {
+          this._findNestedTextArea();
+        }, 100);
+      }
       return;
     }
+    this.textAreaEl.style.overflow = 'hidden';
+  }
 
-    // Reset the textarea height to auto in order to shrink back to its default size.
-    textarea.style.height = 'auto';
+  public ngAfterContentChecked() {
+    this.adjust();
+  }
 
-    // Use the scrollHeight to know how large the textarea *would* be if fit its entire value.
-    textarea.style.height = `${textarea.scrollHeight}px`;
+  public adjust() {
+    if (this.textAreaEl) {
+      const clone = this.textAreaEl.cloneNode(true);
+      const parent = this.textAreaEl.parentNode;
+      clone.style.visibility = 'hidden';
+      parent.appendChild(clone);
 
-    this._previousValue = textarea.value;
+      clone.style.overflow = 'auto';
+      clone.style.height = 'auto';
+
+      const lineHeight = this._getLineHeight();
+      let height = clone.scrollHeight;
+      const rowsCount = height / lineHeight;
+      if (this.minRows && this.minRows >= rowsCount) {
+        // clone.style.overflow = 'auto';
+        height = this.minRows * lineHeight;
+
+      } else if (this.maxRows && this.maxRows <= rowsCount) {
+        // clone.style.overflow = 'auto';
+        height = this.maxRows * lineHeight;
+        this.textAreaEl.style.overflow = 'auto';
+
+      } else {
+        this.textAreaEl.style.overflow = 'hidden';
+      }
+
+      this.textAreaEl.style.height = height + 'px';
+      parent.removeChild(clone);
+    }
+  }
+
+  private _getLineHeight() {
+    let lineHeight = parseInt(this.textAreaEl.style.lineHeight, 10);
+    if (isNaN(lineHeight) && window.getComputedStyle) {
+      const styles = window.getComputedStyle(this.textAreaEl);
+      lineHeight = parseInt(styles.lineHeight, 10);
+    }
+
+    if (isNaN(lineHeight)) {
+      const fontSize = window.getComputedStyle(this.textAreaEl, null).getPropertyValue('font-size');
+      lineHeight = Math.floor(parseInt(fontSize.replace('px', ''), 10) * 1.2);
+    }
+
+    return lineHeight;
   }
 }
