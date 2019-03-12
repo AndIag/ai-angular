@@ -58,9 +58,9 @@ export class DynamicFormBuilder {
     return this;
   }
 
-  public addTextarea(name: string, placeholder: string, disabled?: boolean): DynamicFormBuilder {
+  public addTextarea(name: string, placeholder: string, disabled?: boolean, validators?: ValidatorFn[]): DynamicFormBuilder {
     const p = (this.translate) ? this.translations[placeholder] : placeholder;
-    this.config.push({type: 'textarea', name: name, placeholder: p, disabled: disabled});
+    this.config.push({type: 'textarea', name: name, placeholder: p, disabled: disabled, validation: validators});
     return this;
   }
 
