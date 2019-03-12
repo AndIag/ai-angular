@@ -4,6 +4,7 @@ import {FieldConfig} from '../models/form-field';
 import {DynamicFormAction} from '../models/dynamic-form-action';
 import {DurationConfig} from '../models/duration-config';
 import {TemplateConfig} from '../models/template-config';
+import {ANTISPAM_KEY} from '../components/dynamic-form-fields/form-antispam/form-antispam.component';
 
 export class DynamicFormBuilder {
 
@@ -90,18 +91,23 @@ export class DynamicFormBuilder {
   }
 
   public addSeparator(): DynamicFormBuilder {
-    this.config.push({type: 'separator', name: null});
+    this.config.push({name: null, type: 'separator'});
     return this;
   }
 
   public addSubmit(label: string): DynamicFormBuilder {
     const l = (this.translate) ? this.translations[label] : label;
-    this.config.push({label: l, name: 'submit', type: 'button'});
+    this.config.push({name: 'submit', label: l, type: 'button'});
     return this;
   }
 
   public addTemplate(template: TemplateRef<any>) {
     this.config.push({name: 'template', type: 'template', extra: {template: new TemplateConfig(template)}});
+    return this;
+  }
+
+  public addAntiSpam() {
+    this.config.push({name: ANTISPAM_KEY, type: 'antispam'});
     return this;
   }
 

@@ -1,0 +1,11 @@
+.visually-hidden {
+  //Makes a invisible label to prevent spam bots https://twitter.com/smashingmag/status/1084825001755320323
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}

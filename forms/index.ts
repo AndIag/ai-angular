@@ -4,6 +4,7 @@ import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import {ReactiveFormsModule} from '@angular/forms';
 import {AutosizeDirective} from './src/directives/autosize.directive';
 import {FormDynamicDirective} from './src/directives/form-dynamic.directive';
+import {FormAntiSpamComponent} from './src/components/dynamic-form-fields/form-antispam/form-antispam.component';
 import {FormButtonComponent} from './src/components/dynamic-form-fields/form-button/form-button.component';
 import {FormInputComponent} from './src/components/dynamic-form-fields/form-input/form-input.component';
 import {FormDateComponent} from './src/components/dynamic-form-fields/form-date/form-date.component';
@@ -33,6 +34,7 @@ export * from './src/models/form-field';
 export * from './src/models/template-config';
 
 const formComponents = [
+  FormAntiSpamComponent,
   FormButtonComponent,
   FormInputComponent,
   FormSelectComponent,

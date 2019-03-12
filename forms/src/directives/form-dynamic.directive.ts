@@ -13,6 +13,7 @@ import {FormDateComponent} from '../components/dynamic-form-fields/form-date/for
 import {FormNumberComponent} from '../components/dynamic-form-fields/form-number/form-number.component';
 import {FormTemplateComponent} from '../components/dynamic-form-fields/form-template/form-template.component';
 import {FormSeparatorComponent} from '../components/dynamic-form-fields/form-separator/form-separator.component';
+import {FormAntiSpamComponent} from '../components/dynamic-form-fields/form-antispam/form-antispam.component';
 
 const components: { [type: string]: Type<Field> } = {
   button: FormButtonComponent,
@@ -26,7 +27,8 @@ const components: { [type: string]: Type<Field> } = {
   date: FormDateComponent,
   number: FormNumberComponent,
   separator: FormSeparatorComponent,
-  template: FormTemplateComponent
+  template: FormTemplateComponent,
+  antispam: FormAntiSpamComponent
 };
 
 @Directive({
