@@ -1,6 +1,6 @@
 @import "~bootstrap/scss/bootstrap";
 
-:host /deep/ .dynamic-field {
+:host ::ng-deep .dynamic-field {
   margin-bottom: .5rem;
   label {
     font-size: $font-size-sm;
