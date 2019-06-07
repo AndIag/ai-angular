@@ -39,6 +39,7 @@ export class DynamicFormComponent implements OnChanges, OnInit, AfterViewInit {
 
   public ngOnInit() {
     this.form = this.createGroup();
+    this.form.valueChanges.subscribe(x => this.onChanges.emit(x));
   }
 
   public ngOnChanges() {
