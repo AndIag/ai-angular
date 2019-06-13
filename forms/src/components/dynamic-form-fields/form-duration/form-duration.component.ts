@@ -40,10 +40,10 @@ export class Duration {
   styleUrls: ['./form-duration.component.scss']
 })
 export class FormDurationComponent implements Field, AfterViewInit {
-  @ViewChild('hours') public hours: ElementRef;
-  @ViewChild('minutes') public minutes: ElementRef;
-  @ViewChild('seconds') public seconds: ElementRef;
-  @ViewChild('hiddenInput') public hiddenInput: ElementRef;
+  @ViewChild('hours', {static: true}) public hours: ElementRef;
+  @ViewChild('minutes', {static: true}) public minutes: ElementRef;
+  @ViewChild('seconds', {static: true}) public seconds: ElementRef;
+  @ViewChild('hiddenInput', {static: true}) public hiddenInput: ElementRef;
 
   @Input() public control: AbstractControl;
 

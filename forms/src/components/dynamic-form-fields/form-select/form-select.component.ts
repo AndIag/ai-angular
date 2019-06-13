@@ -8,7 +8,7 @@ import {Field, FieldConfig} from '../../../models/form-field';
   styleUrls: ['./form-select.component.scss']
 })
 export class FormSelectComponent implements Field, AfterViewInit {
-  @ViewChild('select') public select: ElementRef;
+  @ViewChild('select', {static: true}) public select: ElementRef;
 
   public config: FieldConfig;
   public group: FormGroup;
