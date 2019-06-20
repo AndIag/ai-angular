@@ -5,12 +5,12 @@ import {Field, FieldConfig} from '../../../models/form-field';
 @Component({
   selector: 'form-textarea',
   templateUrl: './form-textarea.component.html',
-  styleUrls: ['./form-textarea.component.scss']
+  styleUrls: ['./form-textarea.component.scss'],
 })
 export class FormTextareaComponent implements Field {
-  public config: FieldConfig;
-  public group: FormGroup;
-  public control: AbstractControl;
+  config: FieldConfig;
+  group: FormGroup;
+  control: AbstractControl;
 
-  public required = () => this.control && this.control.errors && this.control.errors.hasOwnProperty('required');
+  required = () => this.control && this.control.errors && this.control.errors.hasOwnProperty('required');
 }

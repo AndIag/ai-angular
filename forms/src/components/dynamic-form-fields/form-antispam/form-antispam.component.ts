@@ -7,9 +7,9 @@ export const ANTISPAM_KEY = 'antispam';
 @Component({
   selector: 'form-antispam',
   templateUrl: './form-antispam.component.html',
-  styleUrls: ['./form-antispam.component.scss']
+  styleUrls: ['./form-antispam.component.scss'],
 })
 export class FormAntiSpamComponent implements Field {
-  public config: FieldConfig;
-  public group: FormGroup;
+  config: FieldConfig | undefined;
+  group: FormGroup | undefined;
 }

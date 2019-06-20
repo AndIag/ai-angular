@@ -1,3 +1,3 @@
 export interface HttpSuccessCallback {
-  onHttpSuccess(title: string, message: string, interpolateParams?: Object): void;
+  onHttpSuccess(title: string, message: string, interpolateParams?: {}): void;
 }

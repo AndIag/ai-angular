@@ -5,9 +5,9 @@ import {Field, FieldConfig} from '../../../models/form-field';
 @Component({
   selector: 'form-separator',
   templateUrl: './form-separator.component.html',
-  styleUrls: ['./form-separator.component.scss']
+  styleUrls: ['./form-separator.component.scss'],
 })
 export class FormSeparatorComponent implements Field {
-  public config: FieldConfig;
-  public group: FormGroup;
+  config: FieldConfig | undefined;
+  group: FormGroup | undefined;
 }

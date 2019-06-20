@@ -1,19 +1,23 @@
 import {hasOwnProp} from '../polyfills';
-import {Http200Callback} from '../callbacks/http200.callback';
-import {Http201Callback} from '../callbacks/http201.callback';
-import {HttpSuccessCallback} from '../callbacks/http-success.callback';
-import {Http400Callback} from '../callbacks/http400.callback';
-import {Http402Callback} from '../callbacks/http402.callback';
-import {Http403Callback} from '../callbacks/http403.callback';
-import {Http404Callback} from '../callbacks/http404.callback';
-import {Http413Callback} from '../callbacks/http413.callback';
-import {HttpErrorCallback} from '../callbacks/http-error.callback';
-import {AINotificationsService, NotificationTypes} from '../utils/notification.interface';
+import {
+  Http200Callback,
+  Http201Callback,
+  Http400Callback,
+  Http402Callback,
+  Http403Callback,
+  Http404Callback,
+  Http413Callback,
+  HttpErrorCallback,
+  HttpSuccessCallback
+} from '../callbacks';
+import {AIError, AIErrorList, AIErrorListWithData, AIErrorMap, AIErrorWithDescription} from './http.types';
 import {AITranslationService} from '../utils/translation.interface';
+import {AINotificationsService, NotificationTypes} from '../utils/notification.interface';
 
 
 export abstract class BaseHttpHandler implements Http200Callback, Http201Callback, HttpSuccessCallback,
-  Http400Callback, Http402Callback<any>, Http403Callback, Http404Callback, Http413Callback, HttpErrorCallback<any> {
+  Http400Callback, Http402Callback, Http403Callback, Http404Callback, Http413Callback,
+  HttpErrorCallback<AIErrorList | AIErrorMap> {
 
   protected abstract translations(): AITranslationService;
 
@@ -22,11 +26,11 @@ export abstract class BaseHttpHandler implements Http200Callback, Http201Callbac
   protected onSuccess(): void {
   }
 
-  protected onError(error?: string | { error: string[] | string } | { [key: string]: string }): void {
+  protected onError(error?: string | AIError | AIErrorList | AIErrorMap): void {
   }
 
 
-  public onHttp200(title: string, message: string, interpolateParams?: Object): void {
+  onHttp200(title: string, message: string, interpolateParams?: {}): void {
     this.translations().get([title, message], interpolateParams).subscribe(res => {
       this.notifications().clear();
       this.notifications().showAlert(res[title], res[message], NotificationTypes.SUCCESS);
@@ -34,7 +38,7 @@ export abstract class BaseHttpHandler implements Http200Callback, Http201Callbac
     this.onSuccess();
   }
 
-  public onHttp201(title: string, message: string, interpolateParams?: Object): void {
+  onHttp201(title: string, message: string, interpolateParams?: {}): void {
     this.translations().get([title, message], interpolateParams).subscribe(res => {
       this.notifications().clear();
       this.notifications().showAlert(res[title], res[message], NotificationTypes.SUCCESS);
@@ -42,7 +46,7 @@ export abstract class BaseHttpHandler implements Http200Callback, Http201Callbac
     this.onSuccess();
   }
 
-  public onHttpSuccess(title: string, message: string, interpolateParams?: Object): void {
+  onHttpSuccess(title: string, message: string, interpolateParams?: {}): void {
     this.translations().get([title, message], interpolateParams).subscribe(res => {
       this.notifications().clear();
       this.notifications().showAlert(res[title], res[message], NotificationTypes.SUCCESS);
@@ -50,7 +54,11 @@ export abstract class BaseHttpHandler implements Http200Callback, Http201Callbac
     this.onSuccess();
   }
 
-  public onHttp400(value: string | { error: string[] | string } | { [key: string]: string }): void {
+  onHttp400(value: string | AIError | AIErrorList | AIErrorMap | AIErrorListWithData<any>): void {
+    if (hasOwnProp(value, 'data')) {
+      console.log('Not implemented \'data\' handling for 400');
+    }
+
     this.translations().get(['MESSAGE.ERROR']).subscribe(res => {
       this.notifications().clear();
       this._showError(res, value);
@@ -58,7 +66,7 @@ export abstract class BaseHttpHandler implements Http200Callback, Http201Callbac
     this.onError(value);
   }
 
-  public onHttp401(value: { error: string, error_description: string }) {
+  onHttp401(value: AIErrorWithDescription) {
     this.translations().get(['MESSAGE.ERROR']).subscribe(res => {
       this.notifications().clear();
       this.notifications().showAlert(res['MESSAGE.ERROR'], value.error_description, NotificationTypes.ERROR);
@@ -66,11 +74,12 @@ export abstract class BaseHttpHandler implements Http200Callback, Http201Callbac
     this.onError(value);
   }
 
-  public onHttp402(value: { errors: string[]; data?: any }): void {
+  onHttp402(value: AIError | AIErrorListWithData<any>): void {
+    console.log('Not implemented 402');
     this.onError();
   }
 
-  public onHttp403(value: { error: string }) {
+  onHttp403(value: { error: string }) {
     this.translations().get(['MESSAGE.ERROR']).subscribe(res => {
       this.notifications().clear();
       this.notifications().showAlert(res['MESSAGE.ERROR'], value.error, NotificationTypes.ERROR);
@@ -78,7 +87,7 @@ export abstract class BaseHttpHandler implements Http200Callback, Http201Callbac
     this.onError(value);
   }
 
-  public onHttp404(value: { error: string }) {
+  onHttp404(value: AIError) {
     this.translations().get(['MESSAGE.ERROR']).subscribe(res => {
       this.notifications().clear();
       this.notifications().showAlert(res['MESSAGE.ERROR'], value.error, NotificationTypes.ERROR);
@@ -86,7 +95,7 @@ export abstract class BaseHttpHandler implements Http200Callback, Http201Callbac
     this.onError(value);
   }
 
-  public onHttp413(value: { error: string }) {
+  onHttp413(value: AIError) {
     this.translations().get(['MESSAGE.ERROR']).subscribe(res => {
       this.notifications().clear();
       this.notifications().showAlert(res['MESSAGE.ERROR'], value.error, NotificationTypes.ERROR);
@@ -94,7 +103,7 @@ export abstract class BaseHttpHandler implements Http200Callback, Http201Callbac
     this.onError(value);
   }
 
-  public onHttpError(value: string | { error: string[] | string } | { [key: string]: string }, readable = true) {
+  onHttpError(value: string | AIError | AIErrorList | AIErrorMap, readable = true) {
     if (readable) {
       this.translations().get(['MESSAGE.ERROR']).subscribe(res => {
         this.notifications().clear();
@@ -104,7 +113,7 @@ export abstract class BaseHttpHandler implements Http200Callback, Http201Callbac
     this.onError(value);
   }
 
-  private _showError(res: { [name: string]: string }, value: string | { error: string[] | string } | { [key: string]: string }) {
+  private _showError(res: { [name: string]: string }, value: string | AIError | AIErrorList | AIErrorMap) {
     if (value) {
       if (typeof value === 'string') {
         // Error is a simple string
@@ -118,12 +127,13 @@ export abstract class BaseHttpHandler implements Http200Callback, Http201Callbac
         }
       } else {
         // Error is an object containing named errors
-        Object.keys(value as { [key: string]: string[] | string }).forEach(
+        const mapValue: { [key: string]: string[] | string } = value as { [key: string]: string[] | string };
+        Object.keys(mapValue).forEach(
           key => {
-            if (Array.isArray(value[key])) {
-              this.notifications().showAlerts(value as { [key: string]: string[] }, NotificationTypes.ERROR);
+            if (Array.isArray(mapValue[key])) {
+              this.notifications().showAlerts(mapValue as { [key: string]: string[] }, NotificationTypes.ERROR);
             } else {
-              this.notifications().showAlert(res['MESSAGE.ERROR'], value[key], NotificationTypes.ERROR);
+              this.notifications().showAlert(res['MESSAGE.ERROR'], mapValue[key] as string, NotificationTypes.ERROR);
             }
           }
         );

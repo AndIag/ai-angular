@@ -13,11 +13,11 @@ import {FormTextareaComponent} from './src/components/dynamic-form-fields/form-t
 import {FormCheckboxComponent} from './src/components/dynamic-form-fields/form-checkbox/form-checkbox.component';
 import {FormTimeComponent} from './src/components/dynamic-form-fields/form-time/form-time.component';
 import {FormNumberComponent} from './src/components/dynamic-form-fields/form-number/form-number.component';
-import {FormDurationComponent} from './src/components/dynamic-form-fields/form-duration/form-duration.component';
 import {FormSeparatorComponent} from './src/components/dynamic-form-fields/form-separator/form-separator.component';
 import {FormTemplateComponent} from './src/components/dynamic-form-fields/form-template/form-template.component';
 import {FormPasswordComponent} from './src/components/dynamic-form-fields/form-password/form-password.component';
 import {DynamicFormComponent} from './src/components/dynamic-form.component';
+import {FormDurationComponent} from './src/components/dynamic-form-fields/form-duration/form-duration.component';
 
 /*
  * Public API Surface of lib
@@ -28,10 +28,10 @@ export * from './src/utils/dynamic-form.builder';
 export * from './src/components/dynamic-form.component';
 
 // Models
-export * from './src/models/duration-config';
 export * from './src/models/dynamic-form-action';
 export * from './src/models/form-field';
 export * from './src/models/template-config';
+export * from './src/models/duration-config';
 
 const formComponents = [
   FormAntiSpamComponent,
@@ -46,28 +46,28 @@ const formComponents = [
   FormDurationComponent,
   FormSeparatorComponent,
   FormTemplateComponent,
-  FormPasswordComponent
+  FormPasswordComponent,
 ];
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
   ],
   declarations: [
     AutosizeDirective,
     FormDynamicDirective,
     DynamicFormComponent,
-    ...formComponents
+    ...formComponents,
   ],
   exports: [
     DynamicFormComponent,
     AutosizeDirective,
   ],
   entryComponents: [
-    ...formComponents
-  ]
+    ...formComponents,
+  ],
 })
 export class DynamicFormsModule {
 }

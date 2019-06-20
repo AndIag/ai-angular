@@ -8,14 +8,14 @@ import HttpStatusCode from '../utils/http-status-codes';
 export const UNAVAILABLE = 'unavailable';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class HttpErrorInterceptor implements HttpInterceptor {
 
     constructor(private router: Router) {
     }
 
-  public intercept(request: HttpRequest<undefined>, next: HttpHandler): Observable<HttpEvent<undefined>> {
+  intercept(request: HttpRequest<undefined>, next: HttpHandler): Observable<HttpEvent<undefined>> {
         return next.handle(request)
             .pipe(catchError(
                 (err: HttpErrorResponse) => {

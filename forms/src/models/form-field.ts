@@ -1,15 +1,15 @@
-import {DurationConfig} from './duration-config';
 import {TemplateConfig} from './template-config';
 import {AbstractControl, FormGroup, ValidatorFn} from '@angular/forms';
 import {DynamicFormAction} from './dynamic-form-action';
+import {DurationConfig} from './duration-config';
 
 export interface Field {
-  config: FieldConfig;
-  group: FormGroup;
+  config: FieldConfig | undefined;
+  group: FormGroup | undefined;
   /**
    * Used when access to control are required in form-***.component
    */
-  control?: AbstractControl;
+  control?: AbstractControl | undefined;
 }
 
 export interface FieldConfig {

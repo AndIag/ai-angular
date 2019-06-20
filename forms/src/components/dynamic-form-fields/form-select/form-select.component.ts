@@ -5,23 +5,23 @@ import {Field, FieldConfig} from '../../../models/form-field';
 @Component({
   selector: 'form-select',
   templateUrl: './form-select.component.html',
-  styleUrls: ['./form-select.component.scss']
+  styleUrls: ['./form-select.component.scss'],
 })
 export class FormSelectComponent implements Field, AfterViewInit {
-  @ViewChild('select', {static: true}) public select: ElementRef;
+  @ViewChild('select', {static: true}) select: ElementRef | undefined;
 
-  public config: FieldConfig;
-  public group: FormGroup;
-  public control: AbstractControl;
+  config: FieldConfig | undefined;
+  group: FormGroup | undefined;
+  control: AbstractControl | undefined;
 
-  public ngAfterViewInit(): void {
+  ngAfterViewInit(): void {
     /**
      * On form reset set placeholder as value
      */
-    this.control.valueChanges.subscribe(
+    this.control!.valueChanges.subscribe(
       (value) => {
         if (value === null) {
-          this.select.nativeElement.options.selectedIndex = 0;
+          this.select!.nativeElement.options.selectedIndex = 0;
         }
       }
     );

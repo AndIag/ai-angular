@@ -9,7 +9,7 @@ export class URLBuilder {
     private _firstQueryInvoked = false;
     private _parameterMatcher = /(:\b\D\w*)/g;
 
-    public static toFileObject(dataURI: string): File {
+    static toFileObject(dataURI: string): File {
         // separate out the mime component
         const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
         const byteString = atob(dataURI.split(',')[1]);
@@ -64,7 +64,7 @@ export class URLBuilder {
         return url;
     }
 
-    public path(url: string): URLBuilder {
+    path(url: string): URLBuilder {
         this._path = url;
         if (this._path.startsWith('/')) {
             this._path = this._path.slice(1);
@@ -73,17 +73,17 @@ export class URLBuilder {
         return this;
     }
 
-    public setParam(paramName: string, value: string): URLBuilder {
+    setParam(paramName: string, value: string): URLBuilder {
         this._urlParams[`:${paramName}`] = value;
         return this;
     }
 
-    public addQueryParam(paramName: string, value: string): URLBuilder {
+    addQueryParam(paramName: string, value: string): URLBuilder {
         this._queryParams[paramName] = value;
         return this;
     }
 
-    public build(): string {
+    build(): string {
         return this._substituteQueryParams(this._substituteParams(`${this._host}${this._path}`));
     }
 

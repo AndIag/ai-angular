@@ -5,12 +5,12 @@ import {Field, FieldConfig} from '../../../models/form-field';
 @Component({
   selector: 'form-number',
   templateUrl: './form-number.component.html',
-  styleUrls: ['./form-number.component.scss']
+  styleUrls: ['./form-number.component.scss'],
 })
 export class FormNumberComponent implements Field {
-  public config: FieldConfig;
-  public group: FormGroup;
-  public control: AbstractControl;
+  config: FieldConfig | undefined;
+  group: FormGroup | undefined;
+  control: AbstractControl | undefined;
 
-  public required = () => this.control && this.control.errors && this.control.errors.hasOwnProperty('required');
+  required = () => this.control && this.control.errors && this.control.errors.hasOwnProperty('required');
 }

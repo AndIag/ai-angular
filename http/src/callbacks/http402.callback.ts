@@ -1,3 +1,5 @@
-export interface Http402Callback<T> {
-    onHttp402(value: { errors: string[], data?: T }): void;
+import {AIError, AIErrorListWithData} from '../core/http.types';
+
+export interface Http402Callback {
+  onHttp402(value: AIError | AIErrorListWithData<any>): void;
 }

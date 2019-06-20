@@ -60,4 +60,5 @@ export enum HttpStatusCode {
     HTTP_511_NETWORK_AUTHENTICATION_REQUIRED = 511,
 }
 
+// tslint:disable-next-line:no-default-export
 export default HttpStatusCode;

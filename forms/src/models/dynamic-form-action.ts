@@ -1,3 +1,5 @@
+/* tslint:disable:no-any */
+
 export interface Action {
   context: any;
   retryFunction: string;
@@ -5,11 +7,11 @@ export interface Action {
 }
 
 export class DynamicFormAction implements Action {
-  public context: any;
-  public retryFunction: string;
-  public args: any[];
+  context: any;
+  retryFunction: string;
+  args: any[];
 
-  constructor(context: any, retryFunction: string, ...args) {
+  constructor(context: any, retryFunction: string, ...args: any[]) {
     this.context = context;
     this.retryFunction = retryFunction;
     this.args = [].concat(...args);

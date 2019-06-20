@@ -4,7 +4,7 @@ import {BaseHttpHandler} from './http.handler';
 import {Injectable} from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HttpService extends HttpClient {
 
@@ -13,7 +13,7 @@ export class HttpService extends HttpClient {
   }
 
   // tslint:disable-next-line:no-any
-  public static handleHttpError(context: any, err: HttpErrorResponse): void {
+  static handleHttpError(context: any, err: HttpErrorResponse): void {
     if (context instanceof BaseHttpHandler) {
       switch (err.status) {
         case HttpStatusCode.HTTP_400_BAD_REQUEST: {
@@ -61,19 +61,19 @@ export class HttpService extends HttpClient {
   }
 
   // tslint:disable-next-line:no-any
-  public static handleHttpSuccess(context: any, status: number = null, title?: string, message?: string, interpolateParams?: Object): void {
+  static handleHttpSuccess(context: any, status: number | undefined = undefined, title?: string, message?: string, interpolateParams?: {}): void {
     if (context instanceof BaseHttpHandler) {
       switch (status) {
         case HttpStatusCode.HTTP_200_OK: {
-          context.onHttp200(title, message, interpolateParams);
+          context.onHttp200(title || '', message || '', interpolateParams);
           break;
         }
         case HttpStatusCode.HTTP_201_CREATED: {
-          context.onHttp201(title, message, interpolateParams);
+          context.onHttp201(title || '', message || '', interpolateParams);
           break;
         }
         default: {
-          context.onHttpSuccess(title, message, interpolateParams);
+          context.onHttpSuccess(title || '', message || '', interpolateParams);
           break;
         }
       }

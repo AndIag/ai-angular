@@ -7,11 +7,11 @@ import {TemplateConfig} from '../../../models/template-config';
 @Component({
   selector: 'form-template',
   templateUrl: './form-template.component.html',
-  styleUrls: ['./form-template.component.scss']
+  styleUrls: ['./form-template.component.scss'],
 })
 export class FormTemplateComponent implements Field {
-  public config: FieldConfig;
-  public group: FormGroup;
+  config: FieldConfig | undefined;
+  group: FormGroup | undefined;
 
-  public template = (): TemplateConfig => this.config && this.config.extra && this.config.extra.template;
+  template = (): TemplateConfig | undefined => this.config && this.config!.extra && this.config!.extra!.template;
 }

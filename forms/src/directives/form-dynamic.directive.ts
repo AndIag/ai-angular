@@ -7,13 +7,13 @@ import {FormPasswordComponent} from '../components/dynamic-form-fields/form-pass
 import {FormSelectComponent} from '../components/dynamic-form-fields/form-select/form-select.component';
 import {FormTextareaComponent} from '../components/dynamic-form-fields/form-textarea/form-textarea.component';
 import {FormCheckboxComponent} from '../components/dynamic-form-fields/form-checkbox/form-checkbox.component';
-import {FormDurationComponent} from '../components/dynamic-form-fields/form-duration/form-duration.component';
 import {FormTimeComponent} from '../components/dynamic-form-fields/form-time/form-time.component';
 import {FormDateComponent} from '../components/dynamic-form-fields/form-date/form-date.component';
 import {FormNumberComponent} from '../components/dynamic-form-fields/form-number/form-number.component';
 import {FormTemplateComponent} from '../components/dynamic-form-fields/form-template/form-template.component';
 import {FormSeparatorComponent} from '../components/dynamic-form-fields/form-separator/form-separator.component';
 import {FormAntiSpamComponent} from '../components/dynamic-form-fields/form-antispam/form-antispam.component';
+import {FormDurationComponent} from '../components/dynamic-form-fields/form-duration/form-duration.component';
 
 const components: { [type: string]: Type<Field> } = {
   button: FormButtonComponent,
@@ -28,39 +28,39 @@ const components: { [type: string]: Type<Field> } = {
   number: FormNumberComponent,
   separator: FormSeparatorComponent,
   template: FormTemplateComponent,
-  antispam: FormAntiSpamComponent
+  antispam: FormAntiSpamComponent,
 };
 
 @Directive({
-  selector: '[formDynamic]'
+  selector: '[formDynamic]',
 })
 export class FormDynamicDirective implements Field, OnChanges, OnInit {
-  @Input() public config: FieldConfig;
-  @Input() public group: FormGroup;
-  @Input() public control: AbstractControl;
+  @Input() config: FieldConfig | undefined;
+  @Input() group: FormGroup | undefined;
+  @Input() control: AbstractControl | undefined;
 
-  public component: ComponentRef<Field>;
+  component: ComponentRef<Field> | undefined;
 
   constructor(private resolver: ComponentFactoryResolver,
               private container: ViewContainerRef) {
   }
 
-  public ngOnChanges() {
+  ngOnChanges() {
     if (this.component) {
       this.component.instance.config = this.config;
       this.component.instance.group = this.group;
     }
   }
 
-  public ngOnInit() {
-    if (!components[this.config.type]) {
+  ngOnInit() {
+    if (!components[this.config!.type]) {
       const supportedTypes = Object.keys(components).join(', ');
       throw new Error(
-        `Trying to use an unsupported type (${this.config.type}).
+        `Trying to use an unsupported type (${this.config!.type}).
         Supported types: ${supportedTypes}`
       );
     }
-    const component = this.resolver.resolveComponentFactory<Field>(components[this.config.type]);
+    const component = this.resolver.resolveComponentFactory<Field>(components[this.config!.type]);
     this.component = this.container.createComponent(component);
     this.component.instance.config = this.config;
     this.component.instance.group = this.group;

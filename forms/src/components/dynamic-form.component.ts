@@ -6,89 +6,89 @@ import {Observable} from 'rxjs';
 @Component({
   selector: 'dynamic-form',
   templateUrl: './dynamic-form.component.html',
-  styleUrls: ['./dynamic-form.component.scss']
+  styleUrls: ['./dynamic-form.component.scss'],
 })
 export class DynamicFormComponent implements OnChanges, OnInit, AfterViewInit {
 
-  @Input() public config: FieldConfig[] = [];
-  @Input() public debug = false;
+  @Input() config: FieldConfig[] = [];
+  @Input() debug = false;
 
-  @Output() public onSubmitted: EventEmitter<any> = new EventEmitter<any>();
-  @Output() public onChanges: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onSubmitted: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onChanges: EventEmitter<any> = new EventEmitter<any>();
 
-  public form: FormGroup;
+  form: FormGroup | undefined;
 
   get controls(): FieldConfig[] {
     return this.config.filter(({type}) => type !== 'button' && type !== 'separator');
   }
 
-  get changes(): Observable<any> {
-    return this.form.valueChanges;
+  get changes(): Observable<any> | undefined {
+    return this.form && this.form!.valueChanges;
   }
 
   get valid(): boolean {
-    return this.form.valid;
+    return this.form && this.form!.valid || false;
   }
 
   get value() {
-    return this.form.value;
+    return this.form && this.form!.value || undefined;
   }
 
   constructor(private fb: FormBuilder) {
   }
 
-  public ngOnInit() {
+  ngOnInit() {
     this.form = this.createGroup();
     this.form.valueChanges.subscribe(x => this.onChanges.emit(x));
   }
 
-  public ngOnChanges() {
+  ngOnChanges() {
     if (this.form) {
       const controls = Object.keys(this.form.controls);
       const configControls = this.controls.map((item: FieldConfig) => item.name);
 
       controls
         .filter((control) => !configControls.includes(control))
-        .forEach((control) => this.form.removeControl(control));
+        .forEach((control) => this.form!.removeControl(control));
 
       configControls
         .filter((control) => !controls.includes(control))
         .forEach((name) => {
           const config = this.config.find((control) => control.name === name);
-          this.form.addControl(name, this.createControl(config));
+          this.form!.addControl(name, this.createControl(config!));
         });
 
     }
   }
 
-  public ngAfterViewInit() {
-    this.changes.subscribe(() => {
-      this.setDisabled('submit', !this.form.valid);
+  ngAfterViewInit() {
+    this.changes!.subscribe(() => {
+      this.setDisabled('submit', !this.form!.valid);
     });
   }
 
-  public createGroup(): FormGroup {
+  createGroup(): FormGroup {
     const group = this.fb.group({});
     this.controls.forEach((control: FieldConfig) => group.addControl(control.name, this.createControl(control)));
     return group;
   }
 
-  public createControl(config: FieldConfig): FormControl {
+  createControl(config: FieldConfig): FormControl {
     const {disabled, validation, value} = config;
-    return this.fb.control({value: value, disabled: disabled}, validation);
+    return this.fb.control({value, disabled}, validation);
   }
 
-  public handleSubmit(event: Event) {
+  handleSubmit(event: Event) {
     event.preventDefault();
     event.stopPropagation();
-    if (this.form.valid) {
+    if (this.form!.valid) {
       this.onSubmitted.emit(this.value);
     }
   }
 
-  public patchValue(name: string, value: any, options?: Object) {
-    if (this.form.controls[name]) {
-      this.form.controls[name].patchValue(value, options);
+  patchValue(name: string, value: any, options?: {}) {
+    if (this.form!.controls[name]) {
+      this.form!.controls[name].patchValue(value, options);
       this.config = this.config.map((item) => {
         if (item.name === name) {
           item.value = value;
@@ -98,10 +98,10 @@ export class DynamicFormComponent implements OnChanges, OnInit, AfterViewInit {
     }
   }
 
-  public setDisabled(name: string, disable: boolean) {
-    if (this.form.controls[name]) {
+  setDisabled(name: string, disable: boolean) {
+    if (this.form!.controls[name]) {
       const method = disable ? 'disable' : 'enable';
-      this.form.controls[name][method]();
+      this.form!.controls[name][method]();
       return;
     }
 
@@ -113,12 +113,12 @@ export class DynamicFormComponent implements OnChanges, OnInit, AfterViewInit {
     });
   }
 
-  public reset() {
-    const rvalue = this.config.filter(x => x.type === 'checkbox').reduce((acc, item) => {
+  reset() {
+    const rvalue = this.config.filter((x: FieldConfig) => x.type === 'checkbox').reduce((acc: { [key: string]: any }, item) => {
       acc[item.name] = item.value || false;
       return acc;
     }, {});
-    this.form.reset(rvalue);
+    this.form!.reset(rvalue);
   }
 
 }
