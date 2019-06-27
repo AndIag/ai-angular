@@ -10,8 +10,8 @@ import {TemplateConfig} from '../../../models/template-config';
   styleUrls: ['./form-template.component.scss'],
 })
 export class FormTemplateComponent implements Field {
-  config: FieldConfig | undefined;
-  group: FormGroup | undefined;
+  config?: FieldConfig;
+  group?: FormGroup;
 
   template = (): TemplateConfig | undefined => this.config && this.config!.extra && this.config!.extra!.template;
 }

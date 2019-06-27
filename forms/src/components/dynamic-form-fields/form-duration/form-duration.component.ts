@@ -4,31 +4,31 @@ import {Field, FieldConfig} from '../../../models/form-field';
 import {DurationConfig} from '../../../models/duration-config';
 
 export class Duration {
-  public get hours(): number {
+  get hours(): number {
     return this._hours;
   }
 
-  public set hours(value: number) {
+  set hours(value: number) {
     this._hours = value % 24;
   }
 
-  public get minutes(): number {
+  get minutes(): number {
     return this._minutes;
   }
 
-  public set minutes(value: number) {
+  set minutes(value: number) {
     this._minutes = value % 60;
   }
 
-  public get seconds(): number {
+  get seconds(): number {
     return this._seconds;
   }
 
-  public set seconds(value: number) {
+  set seconds(value: number) {
     this._seconds = value % 60;
   }
 
-  constructor(public _hours: number = 0, public _minutes: number = 0, public _seconds: number = 0) {
+  constructor(public _hours = 0, public _minutes = 0, public _seconds = 0) {
 
   }
 }
@@ -37,33 +37,33 @@ export class Duration {
 @Component({
   selector: 'form-duration',
   templateUrl: './form-duration.component.html',
-  styleUrls: ['./form-duration.component.scss']
+  styleUrls: ['./form-duration.component.scss'],
 })
 export class FormDurationComponent implements Field, AfterViewInit {
-  @ViewChild('hours', {static: true}) public hours: ElementRef;
-  @ViewChild('minutes', {static: true}) public minutes: ElementRef;
-  @ViewChild('seconds', {static: true}) public seconds: ElementRef;
-  @ViewChild('hiddenInput', {static: true}) public hiddenInput: ElementRef;
+  @ViewChild('hours', {static: true}) hours?: ElementRef;
+  @ViewChild('minutes', {static: true}) minutes?: ElementRef;
+  @ViewChild('seconds', {static: true}) seconds?: ElementRef;
+  @ViewChild('hiddenInput', {static: true}) hiddenInput?: ElementRef;
 
-  @Input() public control: AbstractControl;
+  @Input() control?: AbstractControl;
 
-  public config: FieldConfig;
-  public group: FormGroup;
+  config?: FieldConfig;
+  group?: FormGroup;
 
-  public duration: Duration = new Duration();
-  private _disabled: boolean; // Avoid constant updates
+  duration: Duration = new Duration();
+  private _disabled = false; // Avoid constant updates
 
-  public elements = (n: number) => this.config.extra.duration.elements === n;
-  public required = () => this.control && this.control.errors && this.control.errors.hasOwnProperty('required');
-  public extra = (): DurationConfig => this.config && this.config.extra && this.config.extra.duration;
+  extra = (): DurationConfig | undefined => this.config && this.config!.extra && this.config!.extra!.duration;
+  required = () => this.control && this.control!.errors && this.control!.errors.hasOwnProperty('required');
+  elements = (n: number) => this.extra() && this.extra()!.elements === n;
 
   constructor(private renderer: Renderer2) {
   }
 
-  public ngAfterViewInit(): void {
-    this._disabled = this.hiddenInput.nativeElement.disabled;
+  ngAfterViewInit(): void {
+    this._disabled = this.hiddenInput!.nativeElement.disabled || false;
     (this._disabled) ? this.disable(true) : this.disable(false);
-    this.control.statusChanges.subscribe(
+    this.control!.statusChanges.subscribe(
       (value) => {
         const disable = value === 'DISABLED';
         if (this._disabled !== disable) {
@@ -71,7 +71,7 @@ export class FormDurationComponent implements Field, AfterViewInit {
           (this._disabled) ? this.disable(true) : this.disable(false);
         }
       });
-    this.control.valueChanges.subscribe(
+    this.control!.valueChanges.subscribe(
       value => {
         if (value === null) {
           this.reset();
@@ -80,46 +80,46 @@ export class FormDurationComponent implements Field, AfterViewInit {
     );
   }
 
-  public updateHours() {
-    this.duration.hours = Number(this.hours.nativeElement.value);
+  updateHours() {
+    this.duration.hours = Number(this.hours!.nativeElement.value!);
     this.notifyChanges();
   }
 
-  public updateMinutes() {
-    this.duration.minutes = Number(this.minutes.nativeElement.value);
+  updateMinutes() {
+    this.duration.minutes = Number(this.minutes!.nativeElement.value!);
     this.notifyChanges();
   }
 
-  public updateSeconds() {
-    this.duration.seconds = Number(this.seconds.nativeElement.value);
+  updateSeconds() {
+    this.duration.seconds = Number(this.seconds!.nativeElement.value!);
     this.notifyChanges();
   }
 
   private reset() {
     this.duration = new Duration();
     if (this.hours) {
-      this.hours.nativeElement.value = null;
+      this.hours!.nativeElement.value = null;
     }
     if (this.minutes) {
-      this.minutes.nativeElement.value = null;
+      this.minutes!.nativeElement.value = null;
     }
     if (this.seconds) {
-      this.seconds.nativeElement.value = null;
+      this.seconds!.nativeElement.value = null;
     }
     this.notifyChanges();
   }
 
   private notifyChanges() {
     if (this.duration.hours > 0 || this.duration.minutes > 0 || this.duration.seconds > 0) {
-      this.hiddenInput.nativeElement.value = ('0' + this.duration.hours).slice(-2) + ':'
+      this.hiddenInput!.nativeElement.value = ('0' + this.duration.hours).slice(-2) + ':'
         + ('0' + this.duration.minutes).slice(-2) + ':' + ('0' + this.duration.seconds).slice(-2);
     } else {
-      this.hiddenInput.nativeElement.value = null;
+      this.hiddenInput!.nativeElement.value = null;
     }
-    this.hiddenInput.nativeElement.dispatchEvent(new Event('input'));
+    this.hiddenInput!.nativeElement.dispatchEvent(new Event('input'));
   }
 
-  public disable(disable: boolean) {
+  disable(disable: boolean) {
     if (this.hours) {
       (disable) ? this.renderer.setAttribute(this.hours.nativeElement, 'disabled', 'true')
         : this.renderer.removeAttribute(this.hours.nativeElement, 'disabled');

@@ -1,8 +1,7 @@
 <div class="dynamic-field form-group text-right mt-3"
      [formGroup]="group">
-  <button class="btn btn-success"
-          [disabled]="config.disabled"
-          type="submit">
-    {{ config.label }}
+  <button type="submit" class="btn btn-success"
+          [disabled]="config?.disabled">
+    {{ config?.label }}
   </button>
 </div>

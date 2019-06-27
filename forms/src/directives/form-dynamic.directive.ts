@@ -35,11 +35,11 @@ const components: { [type: string]: Type<Field> } = {
   selector: '[formDynamic]',
 })
 export class FormDynamicDirective implements Field, OnChanges, OnInit {
-  @Input() config: FieldConfig | undefined;
-  @Input() group: FormGroup | undefined;
-  @Input() control: AbstractControl | undefined;
+  @Input() config?: FieldConfig;
+  @Input() group?: FormGroup;
+  @Input() control?: AbstractControl;
 
-  component: ComponentRef<Field> | undefined;
+  component?: ComponentRef<Field>;
 
   constructor(private resolver: ComponentFactoryResolver,
               private container: ViewContainerRef) {
@@ -47,8 +47,8 @@ export class FormDynamicDirective implements Field, OnChanges, OnInit {
 
   ngOnChanges() {
     if (this.component) {
-      this.component.instance.config = this.config;
-      this.component.instance.group = this.group;
+      this.component!.instance.config = this.config;
+      this.component!.instance.group = this.group;
     }
   }
 
@@ -62,8 +62,8 @@ export class FormDynamicDirective implements Field, OnChanges, OnInit {
     }
     const component = this.resolver.resolveComponentFactory<Field>(components[this.config!.type]);
     this.component = this.container.createComponent(component);
-    this.component.instance.config = this.config;
-    this.component.instance.group = this.group;
-    this.component.instance.control = this.control;
+    this.component!.instance.config = this.config;
+    this.component!.instance.group = this.group;
+    this.component!.instance.control = this.control;
   }
 }

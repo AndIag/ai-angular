@@ -9,14 +9,14 @@ import {Field, FieldConfig} from '../../../models/form-field';
   styleUrls: ['./form-checkbox.component.scss'],
 })
 export class FormCheckboxComponent implements Field {
-  config: FieldConfig | undefined;
-  group: FormGroup | undefined;
-  control: AbstractControl | undefined;
+  config?: FieldConfig;
+  group?: FormGroup;
+  control?: AbstractControl;
 
   /**
    * Required logic to set a unique name to each FormCheckbox instance.
    */
-  private name: string | undefined = undefined;
+  private name?: string;
   random = () => {
     if (!this.name) {
       this.name = Math.random().toString(36).substr(2, 5);

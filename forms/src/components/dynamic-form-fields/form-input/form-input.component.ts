@@ -8,11 +8,11 @@ import {Field, FieldConfig} from '../../../models/form-field';
   styleUrls: ['./form-input.component.scss'],
 })
 export class FormInputComponent implements Field {
-  config: FieldConfig | undefined;
-  group: FormGroup | undefined;
-  control: AbstractControl | undefined;
+  config?: FieldConfig;
+  group?: FormGroup;
+  control?: AbstractControl;
 
-  required = () => this.control && this.control.errors && this.control.errors.hasOwnProperty('required');
+  required = () => this.control && this.control!.errors && this.control!.errors.hasOwnProperty('required');
 
   onClickAction() {
     const action = this.config!.action;

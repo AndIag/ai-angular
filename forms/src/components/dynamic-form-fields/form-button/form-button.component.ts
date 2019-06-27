@@ -8,6 +8,6 @@ import {Field, FieldConfig} from '../../../models/form-field';
   styleUrls: ['./form-button.component.scss'],
 })
 export class FormButtonComponent implements Field {
-  config: FieldConfig | undefined;
-  group: FormGroup | undefined;
+  config?: FieldConfig;
+  group?: FormGroup;
 }

@@ -49,6 +49,7 @@ export class DynamicFormBuilder {
     return this;
   }
 
+  // tslint:disable-next-line:no-any
   addSelect(name: string, placeholder: string, options: any[], option_key?: string,
             validators?: ValidatorFn[], disabled?: boolean): DynamicFormBuilder {
     const p = (this.translate) ? this.translations[placeholder] : placeholder;
@@ -79,15 +80,15 @@ export class DynamicFormBuilder {
     return this;
   }
 
-  public addDuration(name: string, label?: string, validators?: ValidatorFn[],
+  addDuration(name: string, label?: string, validators?: ValidatorFn[],
                      disabled?: boolean, extra?: DurationConfig): DynamicFormBuilder {
-    const l = (this.translate) ? this.translations[label] : label;
+    const l = (label && this.translate) ? this.translations[label!] : label;
     if (extra) {
       extra.seconds = (this.translate) ? this.translations[extra.seconds] : extra.seconds;
       extra.minutes = (this.translate) ? this.translations[extra.minutes] : extra.minutes;
       extra.hours = (this.translate) ? this.translations[extra.hours] : extra.hours;
     }
-    this.config.push({type: 'duration', name: name, label: l, disabled: disabled, validation: validators, extra: {duration: extra}});
+    this.config.push({type: 'duration', name, label: l, disabled, validation: validators, extra: {duration: extra}});
     return this;
   }
 
@@ -102,6 +103,7 @@ export class DynamicFormBuilder {
     return this;
   }
 
+  // tslint:disable-next-line:no-any
   addTemplate(template: TemplateRef<any>) {
     this.config.push({name: 'template', type: 'template', extra: {template: new TemplateConfig(template)}});
     return this;

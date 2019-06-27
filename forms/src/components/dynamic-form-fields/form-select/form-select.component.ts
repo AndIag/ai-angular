@@ -8,11 +8,11 @@ import {Field, FieldConfig} from '../../../models/form-field';
   styleUrls: ['./form-select.component.scss'],
 })
 export class FormSelectComponent implements Field, AfterViewInit {
-  @ViewChild('select', {static: true}) select: ElementRef | undefined;
+  @ViewChild('select', {static: true}) select?: ElementRef;
 
-  config: FieldConfig | undefined;
-  group: FormGroup | undefined;
-  control: AbstractControl | undefined;
+  config?: FieldConfig;
+  group?: FormGroup;
+  control?: AbstractControl;
 
   ngAfterViewInit(): void {
     /**

@@ -8,9 +8,9 @@ import {Field, FieldConfig} from '../../../models/form-field';
   styleUrls: ['./form-textarea.component.scss'],
 })
 export class FormTextareaComponent implements Field {
-  config: FieldConfig;
-  group: FormGroup;
-  control: AbstractControl;
+  config?: FieldConfig;
+  group?: FormGroup;
+  control?: AbstractControl;
 
-  required = () => this.control && this.control.errors && this.control.errors.hasOwnProperty('required');
+  required = () => this.control && this.control!.errors && this.control!.errors!.hasOwnProperty('required');
 }

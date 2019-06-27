@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {FieldConfig} from '../models/form-field';
 import {Observable} from 'rxjs';
 
+/* tslint:disable:no-any */
 @Component({
   selector: 'dynamic-form',
   templateUrl: './dynamic-form.component.html',
@@ -13,17 +14,17 @@ export class DynamicFormComponent implements OnChanges, OnInit, AfterViewInit {
   @Input() config: FieldConfig[] = [];
   @Input() debug = false;
 
-  @Output() onSubmitted: EventEmitter<any> = new EventEmitter<any>();
-  @Output() onChanges: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onSubmitted: EventEmitter<any>;
+  @Output() onChanges: EventEmitter<any>;
 
-  form: FormGroup | undefined;
+  form?: FormGroup;
 
   get controls(): FieldConfig[] {
     return this.config.filter(({type}) => type !== 'button' && type !== 'separator');
   }
 
-  get changes(): Observable<any> | undefined {
-    return this.form && this.form!.valueChanges;
+  get changes(): Observable<any> {
+    return this.form!.valueChanges;
   }
 
   get valid(): boolean {
@@ -31,10 +32,12 @@ export class DynamicFormComponent implements OnChanges, OnInit, AfterViewInit {
   }
 
   get value() {
-    return this.form && this.form!.value || undefined;
+    return this.form && this.form!.value;
   }
 
   constructor(private fb: FormBuilder) {
+    this.onSubmitted = new EventEmitter();
+    this.onChanges = new EventEmitter();
   }
 
   ngOnInit() {

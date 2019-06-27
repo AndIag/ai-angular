@@ -1,15 +1,19 @@
-<div class="dynamic-field input-group" [formGroup]="group" *ngIf="!(control.disabled && !control.value)">
-  <div class="input-group-prepend" *ngIf="config.addon_left">
-    <span class="input-group-text material-icons">{{ config.addon_left }}</span>
-  </div>
-  <label *ngIf="config.label">{{ config.label }}</label>
-  <input type="text" class="form-control" [ngClass]="{'is-valid': control.valid, 'is-invalid': control.invalid}"
-         [attr.placeholder]="config.placeholder + ( required() ? ' *' : '')" (keyup.enter)="onClickAction()"
-         [formControlName]="config.name" autocomplete="off" autocapitalize="off" spellcheck="false">
-  <div class="input-group-append" *ngIf="config.addon_right">
-    <span class="input-group-text material-icons" *ngIf="!config.action">{{ config.addon_right }}</span>
-    <button class="btn btn-dark text-primary" type="button" *ngIf="config.action" (click)="onClickAction()">
-      <i class="material-icons">{{ config.addon_right }}</i>
-    </button>
-  </div>
+<div class="dynamic-field input-group" [formGroup]="group" *ngIf="!(control?.disabled && !control?.value)">
+    <div class="input-group-prepend" *ngIf="config?.addon_left as addon_left">
+        <span class="input-group-text material-icons">{{ addon_left }}</span>
+    </div>
+
+    <label *ngIf="config?.label as label">{{ label }}</label>
+    <input type="text" class="form-control" autocomplete="off" autocapitalize="off" spellcheck="false"
+           [ngClass]="{'is-valid': control?.valid, 'is-invalid': control?.invalid}"
+           [attr.placeholder]="config?.placeholder + ( required() ? ' *' : '')"
+           [formControlName]="config?.name"
+           (keyup.enter)="onClickAction()">
+
+    <div class="input-group-append" *ngIf="config?.addon_right as addon_right">
+        <span class="input-group-text material-icons" *ngIf="!config?.action">{{ addon_right }}</span>
+        <button class="btn btn-dark text-primary" type="button" *ngIf="config?.action" (click)="onClickAction()">
+            <i class="material-icons">{{ addon_right }}</i>
+        </button>
+    </div>
 </div>

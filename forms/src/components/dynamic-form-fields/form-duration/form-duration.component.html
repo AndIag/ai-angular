@@ -1,31 +1,33 @@
 <div class="dynamic-field input-group" [formGroup]="group">
-  <div class="input-group-prepend" *ngIf="config.addon_left">
-    <span class="input-group-text material-icons">{{ config.addon_left }}</span>
+  <div class="input-group-prepend" *ngIf="config?.addon_left">
+    <span class="input-group-text material-icons">{{ config?.addon_left }}</span>
   </div>
-  <label *ngIf="config.label" class="col-12">{{ config.label }}</label>
+
+  <label *ngIf="config?.label as label" class="col-12">{{ label }}</label>
   <!--<div class="form-row">-->
-  <div *ngIf="extra()?.hours" class="input-select"
-       [ngClass]="{'col-12': elements(1), 'col-6': elements(2), 'col-4': elements(3), 'is-valid': control.valid, 'is-invalid': control.invalid}">
+  <div *ngIf="extra()?.hours as hours" class="input-select"
+       [ngClass]="{'col-12': elements(1), 'col-6': elements(2), 'col-4': elements(3), 'is-valid': control?.valid, 'is-invalid': control?.invalid}">
     <input #hours name="hours" type="number" class="form-control" min="00" max="23" step="1"
-           [attr.placeholder]="extra()?.hours + ( required() ? ' *' : '')" (change)="updateHours()">
+           [attr.placeholder]="hours + ( required() ? ' *' : '')" (change)="updateHours()">
   </div>
-  <div *ngIf="extra()?.minutes" class="input-select"
-       [ngClass]="{'col-12': elements(1), 'col-6': elements(2), 'col-4': elements(3), 'is-valid': control.valid, 'is-invalid': control.invalid}">
+  <div *ngIf="extra()?.minutes as minutes" class="input-select"
+       [ngClass]="{'col-12': elements(1), 'col-6': elements(2), 'col-4': elements(3), 'is-valid': control?.valid, 'is-invalid': control?.invalid}">
     <input #minutes name="minutes" type="number" class="form-control" min="00" max="59" step="1"
-           [attr.placeholder]="extra()?.minutes + ( required() ? ' *' : '')"
+           [attr.placeholder]="minutes + ( required() ? ' *' : '')"
            (change)="updateMinutes()">
   </div>
-  <div *ngIf="extra()?.seconds" class="input-select"
-       [ngClass]="{'col-12': elements(1), 'col-6': elements(2), 'col-4': elements(3), 'is-valid': control.valid, 'is-invalid': control.invalid}">
+  <div *ngIf="extra()?.seconds as seconds" class="input-select"
+       [ngClass]="{'col-12': elements(1), 'col-6': elements(2), 'col-4': elements(3), 'is-valid': control?.valid, 'is-invalid': control?.invalid}">
     <input #seconds name="seconds" type="number" class="form-control" min="00" max="59" step="1"
-           [attr.placeholder]="extra()?.seconds + ( required() ? ' *' : '')"
+           [attr.placeholder]="seconds + ( required() ? ' *' : '')"
            (change)="updateSeconds()">
   </div>
-  <!--</div>-->
+
   <input #hiddenInput hidden type="text" class="form-control"
          pattern="([01]?[0-9]{1}|2[0-3]{1}):[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}"
-         [formControlName]="config.name">
-  <div class="input-group-append" *ngIf="config.addon_right">
-    <span class="input-group-text material-icons">{{ config.addon_right }}</span>
+         [formControlName]="config?.name">
+
+  <div class="input-group-append" *ngIf="config?.addon_right">
+    <span class="input-group-text material-icons">{{ config?.addon_right }}</span>
   </div>
 </div>

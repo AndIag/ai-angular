@@ -6,11 +6,12 @@ const MAX_LOOKUP_RETRIES = 3;
   selector: 'textarea[autosize]',
 })
 export class AutosizeDirective implements AfterContentChecked {
-  @Input() minRows: number | undefined;
-  @Input() maxRows: number | undefined;
+  @Input() minRows?: number;
+  @Input() maxRows?: number;
 
-  private retries = 0;
+  // tslint:disable-next-line:no-any
   private textAreaEl: any;
+  private retries = 0;
 
   @HostListener('input', ['$event.target'])
   onInput(textArea: HTMLTextAreaElement) {
@@ -20,7 +21,6 @@ export class AutosizeDirective implements AfterContentChecked {
   constructor(public element: ElementRef) {
     if (this.element.nativeElement.tagName !== 'TEXTAREA') {
       this._findNestedTextArea();
-
     } else {
       this.textAreaEl = this.element.nativeElement;
       this.textAreaEl.style.overflow = 'hidden';
@@ -84,16 +84,16 @@ export class AutosizeDirective implements AfterContentChecked {
     }
   }
 
-  private _getLineHeight() {
+  private _getLineHeight(): number {
     let lineHeight = +this.textAreaEl.style.lineHeight;
-    if (isNaN(lineHeight) && window.getComputedStyle) {
-      const styles = window.getComputedStyle(this.textAreaEl);
-      lineHeight = +styles.lineHeight;
-    }
-
     if (isNaN(lineHeight)) {
-      const fontSize = window.getComputedStyle(this.textAreaEl, null).getPropertyValue('font-size');
-      lineHeight = Math.floor(+fontSize.replace('px', '') * 1.2);
+      const style = window.getComputedStyle(this.textAreaEl, null);
+      lineHeight = +style.lineHeight!;
+
+      if (isNaN(lineHeight)) {
+        const fontSize = style.getPropertyValue('font-size');
+        lineHeight = Math.floor(+fontSize.replace('px', '') * 1.2);
+      }
     }
 
     return lineHeight;

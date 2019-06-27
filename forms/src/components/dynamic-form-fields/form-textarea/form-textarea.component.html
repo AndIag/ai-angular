@@ -1,8 +1,8 @@
 <div class="dynamic-field form-group" [formGroup]="group">
-  <label *ngIf="config.label">{{ config.label }}</label>
+  <label *ngIf="config?.label as label">{{ label }}</label>
   <textarea class="form-control" autosize
-            [ngClass]="{'is-valid': control.valid, 'is-invalid': control.invalid}"
-            [attr.placeholder]="config.placeholder + ( required() ? ' *' : '')"
-            [formControlName]="config.name">
+            [ngClass]="{'is-valid': control?.valid, 'is-invalid': control?.invalid}"
+            [attr.placeholder]="config?.placeholder + ( required() ? ' *' : '')"
+            [formControlName]="config?.name">
   </textarea>
 </div>

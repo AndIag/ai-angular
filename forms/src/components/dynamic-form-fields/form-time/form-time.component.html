@@ -1,13 +1,13 @@
 <div class="dynamic-field input-group" [formGroup]="group">
-  <div class="input-group-prepend" *ngIf="config.addon_left">
-    <span class="input-group-text material-icons">{{ config.addon_left }}</span>
-  </div>
-  <label *ngIf="config.label">{{ config.label }}</label>
-  <input type="time" class="form-control" min="00:00:00" max="99:00:00" step="15"
-         [ngClass]="{'is-valid': control.valid, 'is-invalid': control.invalid}"
-         [attr.placeholder]="config.placeholder + ( control.errors?.required ? ' *' : '')"
-         [formControlName]="config.name">
-  <div class="input-group-append" *ngIf="config.addon_right">
-    <span class="input-group-text material-icons">{{ config.addon_right }}</span>
-  </div>
+    <div class="input-group-prepend" *ngIf="config?.addon_left as addon_left">
+        <span class="input-group-text material-icons">{{ addon_left }}</span>
+    </div>
+    <label *ngIf="config?.label as label">{{ label }}</label>
+    <input type="time" class="form-control" min="00:00:00" max="99:00:00" step="15"
+           [ngClass]="{'is-valid': control?.valid, 'is-invalid': control?.invalid}"
+           [attr.placeholder]="config?.placeholder + ( control?.errors?.required ? ' *' : '')"
+           [formControlName]="config?.name">
+    <div class="input-group-append" *ngIf="config?.addon_right as addon_right">
+        <span class="input-group-text material-icons">{{ addon_right }}</span>
+    </div>
 </div>

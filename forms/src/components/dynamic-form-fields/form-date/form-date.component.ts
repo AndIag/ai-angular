@@ -9,11 +9,11 @@ import {BsLocaleService} from 'ngx-bootstrap';
   styleUrls: ['./form-date.component.scss'],
 })
 export class FormDateComponent implements Field {
-  config: FieldConfig | undefined;
-  group: FormGroup | undefined;
-  control: AbstractControl | undefined;
+  config?: FieldConfig;
+  group?: FormGroup;
+  control?: AbstractControl;
 
-  required = () => this.control && this.control.errors && this.control.errors.hasOwnProperty('required');
+  required = () => this.control && this.control!.errors && this.control!.errors.hasOwnProperty('required');
 
   constructor(@Inject(LOCALE_ID) private locale: string, private localeService: BsLocaleService) {
     localeService.use(locale);

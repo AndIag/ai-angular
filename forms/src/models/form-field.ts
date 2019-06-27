@@ -4,14 +4,21 @@ import {DynamicFormAction} from './dynamic-form-action';
 import {DurationConfig} from './duration-config';
 
 export interface Field {
-  config: FieldConfig | undefined;
-  group: FormGroup | undefined;
+  config?: FieldConfig;
+  group?: FormGroup;
   /**
    * Used when access to control are required in form-***.component
    */
-  control?: AbstractControl | undefined;
+  control?: AbstractControl;
 }
 
+export interface FieldExtraConfig {
+  duration?: DurationConfig;
+  template?: TemplateConfig;
+  locale?: string;
+}
+
+// tslint:disable:no-any
 export interface FieldConfig {
   disabled?: boolean;
   label?: string;
@@ -26,10 +33,4 @@ export interface FieldConfig {
   addon_right?: string;
   action?: DynamicFormAction;
   extra?: FieldExtraConfig;
-}
-
-export interface FieldExtraConfig {
-  duration?: DurationConfig;
-  template?: TemplateConfig;
-  locale?: string;
 }
