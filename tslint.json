@@ -1,18 +1,6 @@
 {
-  "extends": "../tslint.json",
+  "extends": "../node_modules/gts/tsconfig-google.json",
   "rules": {
-    "no-any": false,
-    "directive-selector": [
-      true,
-      "attribute",
-      "",
-      "camelCase"
-    ],
-    "component-selector": [
-      true,
-      "element",
-      "",
-      "kebab-case"
-    ]
+    "no-any": false
   }
 }
