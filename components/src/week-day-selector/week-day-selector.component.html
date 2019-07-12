@@ -1,0 +1,58 @@
+<div class="mb-2">
+    <ai-title [title]="title"></ai-title>
+</div>
+
+<div class="row justify-content-around align-content-center px-1">
+    <div class="col text-left font-weight-bold">
+        <p class="m-0 align-middle"> {{ startOfWeek }} </p>
+    </div>
+
+    <div class="col-5 col-lg-3">
+        <div class="input-group">
+            <span class="input-group-prepend">
+              <button class="btn btn-dark text-primary" type="button" (click)="decrementWeek()">
+                <i class="material-icons">keyboard_arrow_left</i>
+              </button>
+            </span>
+
+            <input type="number" class="form-control text-center" placeholder="Week"
+                   [ngModel]="selectedWeek"
+                   (ngModelChange)="onChangeWeek($event)"/>
+
+            <span class="input-group-append">
+              <button class="btn btn-dark text-primary" type="button" (click)="incrementWeek()">
+                <i class="material-icons">keyboard_arrow_right</i>
+              </button>
+            </span>
+        </div>
+    </div>
+
+    <div class="col text-right font-weight-bold">
+        <p class="m-0"> {{ endOfWeek }} </p>
+    </div>
+</div>
+
+<div class="row days px-3">
+    <div class="col" *ngFor="let day of WEEK_DAYS;">
+        <div class="card bordered" [ngClass]="dayClass(day)">
+            <div class="card-body" (click)="selectDay(day)">
+                {{ day | titlecase }}
+            </div>
+
+            <div *ngIf="showDayActions(day)" class="card-actions d-flex right justify-content-end">
+                <button *ngIf="actionPrimary && !actionPrimary.hidden" class="btn btn-circle"
+                        tooltip="{{actionPrimary.tooltip}}"
+                        [ngClass]="actionPrimary.class"
+                        (click)="primaryAction()">
+                    <span class="material-icons">{{actionPrimary.icon}}</span>
+                </button>
+                <button *ngIf="actionSecondary && !actionSecondary.hidden" class="btn btn-circle"
+                        tooltip="{{actionSecondary.tooltip}}"
+                        [ngClass]="actionSecondary.class"
+                        (click)="secondaryAction()">
+                    <span class="material-icons">{{actionSecondary.icon}}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

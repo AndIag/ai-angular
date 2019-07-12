@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-md" [ngClass]="[navbarClass, style]">
+    <a *ngIf="brandItem as item" class="navbar-brand font-weight-bold" (click)="onItemSelected.emit(item)">
+        <img *ngIf="item.image as image" [src]="image" height="45"/>
+        <span class="font-weight-bold ml-2" [ngClass]="item.style">{{item.title}}</span>
+    </a>
+
+    <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" [ngClass]="{ 'show': isShowing }">
+        <div class="navbar-nav">
+            <a *ngFor="let item of leftItems" class="nav-item nav-link d-flex" [ngClass]="item.style"
+               (click)="onItemSelected.emit(item)">
+
+                <i class="material-icons d-md-none d-lg-none d-xl-none mr-2">{{item.icon}}</i>
+                <span>{{item.title}}</span>
+            </a>
+        </div>
+
+        <div class="navbar-nav ml-auto">
+            <a *ngFor="let item of rightItems" class="nav-item nav-link d-flex" [ngClass]="item.style"
+               (click)="onItemSelected.emit(item)">
+
+                <i class="material-icons d-md-none d-lg-none d-xl-none mr-2">{{item.icon}}</i>
+                <span>{{item.title}}</span>
+            </a>
+        </div>
+    </div>
+</nav>

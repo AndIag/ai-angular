@@ -1,0 +1,18 @@
+<div class="container-fluid p-3">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-auto text-center">
+            <h3 class="text-muted">
+                <span class="material-icons">broken_image</span>
+            </h3>
+
+            <h3 class="text-muted">
+                <span>{{ text }}</span>
+            </h3>
+
+            <button type="button" class="btn btn-primary d-inline-flex mt-3" [routerLink]="[redirectTo]">
+                <i class="material-icons">refresh</i>
+                {{ retry }}
+            </button>
+        </div>
+    </div>
+</div>
