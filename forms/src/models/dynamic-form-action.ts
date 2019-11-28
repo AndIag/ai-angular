@@ -3,7 +3,7 @@
 export interface Action {
   context: any;
   retryFunction: string;
-  args: any[];
+  args?: any[];
 }
 
 export class DynamicFormAction implements Action {

@@ -35,7 +35,7 @@ export class DynamicFormBuilder {
     return this;
   }
 
-  addCheckbox(name: string, label: string, action: DynamicFormAction, value?: boolean): DynamicFormBuilder {
+  addCheckbox(name: string, label: string, action?: DynamicFormAction, value?: boolean): DynamicFormBuilder {
     const l = (this.translate) ? this.translations[label] : label;
     this.config.push({type: 'checkbox', name, value, label: l, action});
     return this;
@@ -84,9 +84,9 @@ export class DynamicFormBuilder {
                      disabled?: boolean, extra?: DurationConfig): DynamicFormBuilder {
     const l = (label && this.translate) ? this.translations[label!] : label;
     if (extra) {
-      extra.seconds = (this.translate) ? this.translations[extra.seconds] : extra.seconds;
-      extra.minutes = (this.translate) ? this.translations[extra.minutes] : extra.minutes;
-      extra.hours = (this.translate) ? this.translations[extra.hours] : extra.hours;
+      extra.seconds = (this.translate && !! extra.seconds) ? this.translations[extra.seconds] : extra.seconds;
+      extra.minutes = (this.translate && !!extra.minutes) ? this.translations[extra.minutes] : extra.minutes;
+      extra.hours = (this.translate && !!extra.hours) ? this.translations[extra.hours] : extra.hours;
     }
     this.config.push({type: 'duration', name, label: l, disabled, validation: validators, extra: {duration: extra}});
     return this;
