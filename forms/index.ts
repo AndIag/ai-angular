@@ -33,6 +33,9 @@ export * from './src/models/form-field';
 export * from './src/models/template-config';
 export * from './src/models/duration-config';
 
+// Directives
+export * from './src/directives/autosize.directive';
+
 const formComponents = [
   FormAntiSpamComponent,
   FormButtonComponent,
