@@ -1,7 +1,7 @@
 import {Component, Inject, LOCALE_ID} from '@angular/core';
 import {AbstractControl, FormGroup} from '@angular/forms';
 import {Field, FieldConfig} from '../../../models/form-field';
-import {BsLocaleService} from 'ngx-bootstrap';
+import {BsLocaleService} from 'ngx-bootstrap/datepicker';
 
 @Component({
   selector: 'form-date',
