@@ -1,0 +1,30 @@
+<div class="card card-plain text-left">
+  <div class="card-header">
+    <h5 class="text-primary mb-0">{{ title }}</h5>
+  </div>
+
+  <div class="card-body pb-3">
+    <div class="row chart">
+      <ngx-charts-bar-vertical
+        [results]="data"
+        [xAxis]="true"
+        [yAxis]="true"
+        [showXAxisLabel]="!!xAxisLabel"
+        [showYAxisLabel]="!!yAxisLabel"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        [yAxisTickFormatting]="yFormat"
+        [xAxisTickFormatting]="xFormat"
+        [scheme]="colors"
+        [schemeType]="'linear'"
+        [gradient]="false"
+        [legend]="false"
+        [showGridLines]="true"
+        [yScaleMin]="0"
+        [yScaleMax]="100"
+        [yAxisTicks]="[0,25,50,75,100]">
+      </ngx-charts-bar-vertical>
+    </div>
+  </div>
+
+</div>
