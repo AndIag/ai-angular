@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {NavbarItem, NavbarItemType, NavbarType} from './navbar.metadata';
+import {NavbarItem, NavbarItemPosition, NavbarItemPresentationMode, NavbarStyle} from './navbar.metadata';
 
 @Component({
   selector: 'ai-navbar',
@@ -9,30 +9,30 @@ import {NavbarItem, NavbarItemType, NavbarType} from './navbar.metadata';
 export class NavbarComponent {
 
   @Input() items: NavbarItem[] = [];
-  @Input() type: NavbarType = NavbarType.LIGHT;
-  @Input() style?: string;
+  @Input() type: NavbarStyle = NavbarStyle.LIGHT;
+  @Input() style: string = '';
 
   @Output() onItemSelected: EventEmitter<NavbarItem>;
 
   isShowing = false;
 
   get brandItem() {
-    return this.items.find(i => i.menuType === NavbarItemType.BRAND);
+    return this.items.find(i => i.position === NavbarItemPosition.BRAND);
   }
 
   get leftItems() {
-    return this.items.filter(i => i.menuType === NavbarItemType.LEFT);
+    return this.items.filter(i => i.position === NavbarItemPosition.LEFT);
   }
 
   get rightItems() {
-    return this.items.filter(i => i.menuType === NavbarItemType.RIGHT);
+    return this.items.filter(i => i.position === NavbarItemPosition.RIGHT);
   }
 
   get navbarClass() {
     switch (this.type) {
-      case NavbarType.DARK:
+      case NavbarStyle.DARK:
         return 'navbar-dark bg-dark';
-      case NavbarType.LIGHT:
+      case NavbarStyle.LIGHT:
         return 'navbar-light bg-light';
       default:
         return 'navbar-light bg-light';
@@ -45,5 +45,23 @@ export class NavbarComponent {
 
   // Toggles navbar on mobile view
   toggleNavbar = () => this.isShowing = !this.isShowing;
+
+  // Presentation mode
+  iconClass = (item: NavbarItem) => {
+    switch (item.mode) {
+      case NavbarItemPresentationMode.ONLY_TEXT:
+        return 'd-md-none d-lg-none d-xl-none';
+      default:
+        return '';
+    }
+  };
+  textClass = (item: NavbarItem) => {
+    switch (item.mode) {
+      case NavbarItemPresentationMode.ONLY_ICON:
+        return 'd-md-none d-lg-none d-xl-none';
+      default:
+        return '';
+    }
+  };
 
 }
