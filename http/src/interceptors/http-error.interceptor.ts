@@ -15,7 +15,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     constructor(private router: Router) {
     }
 
-  intercept(request: HttpRequest<undefined>, next: HttpHandler): Observable<HttpEvent<undefined>> {
+  public intercept(request: HttpRequest<undefined>, next: HttpHandler): Observable<HttpEvent<undefined>> {
         return next.handle(request)
             .pipe(catchError(
                 (err: HttpErrorResponse) => {
