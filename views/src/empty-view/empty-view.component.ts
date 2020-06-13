@@ -11,7 +11,7 @@ export const NOT_FOUND_MESSAGE = new InjectionToken<string>('Default \'not found
 export class EmptyViewComponent {
 
   @Input() public text: string;
-  @Input() public icon?: string;
+  @Input() public icon = 'error_outline';
   @Input() public class = 'material-icons';
   @Input() public textColor: string = '#E7E7E7';
   @Input() public topSpace?: number = 20;
@@ -21,7 +21,7 @@ export class EmptyViewComponent {
   }
 
   get textStyle() {
-    return {'color': this.textColor, 'opacity': .1};
+    return {'color': this.textColor, 'opacity': .3};
   }
 
   constructor(@Inject(NOT_FOUND_MESSAGE) public message: string = 'NOT FOUND') {
