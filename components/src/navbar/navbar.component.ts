@@ -54,7 +54,8 @@ export class NavbarComponent {
       default:
         return '';
     }
-  };
+  }
+
   textClass = (item: NavbarItem) => {
     switch (item.mode) {
       case NavbarItemPresentationMode.ONLY_ICON:
@@ -62,6 +63,6 @@ export class NavbarComponent {
       default:
         return '';
     }
-  };
+  }
 
 }

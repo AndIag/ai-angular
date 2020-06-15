@@ -18,7 +18,7 @@ export * from './src/line/line-chart.component';
 
 const components = [
   BarChartComponent,
-  LineChartComponent
+  LineChartComponent,
 ];
 
 @NgModule({
@@ -36,7 +36,7 @@ const components = [
   ],
   entryComponents: [
     ...components,
-  ]
+  ],
 })
 export class ChartsModule {
 }

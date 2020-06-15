@@ -6,7 +6,7 @@ export const NOT_FOUND_MESSAGE = new InjectionToken<string>('Default \'not found
   selector: 'ai-empty',
   templateUrl: './empty-view.component.html',
   styleUrls: ['./empty-view.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EmptyViewComponent {
 
@@ -17,11 +17,11 @@ export class EmptyViewComponent {
   @Input() public topSpace?: number = 20;
 
   get topMargin() {
-    return (!!this.topSpace) ? {'margin-top': this.topSpace + '%'} : {'margin-top': '20%'};
+    return (!!this.topSpace) ? {'margin-top': `${this.topSpace}%`} : {'margin-top': '20%'};
   }
 
   get textStyle() {
-    return {'color': this.textColor, 'opacity': .3};
+    return {color: this.textColor, opacity: .3};
   }
 
   constructor(@Inject(NOT_FOUND_MESSAGE) public message: string = 'NOT FOUND') {

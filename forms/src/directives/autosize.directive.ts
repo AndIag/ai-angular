@@ -40,9 +40,7 @@ export class AutosizeDirective implements AfterContentChecked {
 
       } else {
         this.retries++;
-        setTimeout(() => {
-          this._findNestedTextArea();
-        }, 100);
+        setTimeout(() => this._findNestedTextArea(), 100);
       }
       return;
     }
@@ -79,7 +77,7 @@ export class AutosizeDirective implements AfterContentChecked {
         this.textAreaEl.style.overflow = 'hidden';
       }
 
-      this.textAreaEl.style.height = height + 'px';
+      this.textAreaEl.style.height = `${height}px`;
       parent.removeChild(clone);
     }
   }

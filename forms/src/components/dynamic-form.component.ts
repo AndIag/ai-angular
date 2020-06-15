@@ -117,10 +117,11 @@ export class DynamicFormComponent implements OnChanges, OnInit, AfterViewInit {
   }
 
   reset() {
-    const rvalue = this.config.filter((x: FieldConfig) => x.type === 'checkbox').reduce((acc: { [key: string]: any }, item) => {
-      acc[item.name] = item.value || false;
-      return acc;
-    }, {});
+    const rvalue = this.config.filter((x: FieldConfig) => x.type === 'checkbox').reduce(
+      (acc: { [key: string]: any }, item) => {
+        acc[item.name] = item.value || false;
+        return acc;
+      }, {});
     this.form!.reset(rvalue);
   }
 

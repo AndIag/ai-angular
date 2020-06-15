@@ -8,13 +8,12 @@ import {
   Http404Callback,
   Http413Callback,
   HttpErrorCallback,
-  HttpSuccessCallback
+  HttpSuccessCallback,
 } from '../callbacks';
 import {AIError, AIErrorList, AIErrorListWithData, AIErrorMap, AIErrorWithDescription} from './http.types';
 import {AITranslationService} from '../utils/translation.interface';
 import {AINotificationsService, NotificationTypes} from '../utils/notification.interface';
 import {Observable, of} from 'rxjs';
-
 
 export abstract class BaseHttpHandler implements Http200Callback, Http201Callback, HttpSuccessCallback,
   Http400Callback, Http402Callback, Http403Callback, Http404Callback, Http413Callback,
@@ -33,7 +32,6 @@ export abstract class BaseHttpHandler implements Http200Callback, Http201Callbac
   protected getErrorMessageKey(): string {
     return (!!this.translations()) ? 'MESSAGE.ERROR' : 'ERROR';
   }
-
 
   public onHttp200(title: string, message: string): void {
     this.notifications().clear();
@@ -147,7 +145,7 @@ export abstract class BaseHttpHandler implements Http200Callback, Http201Callbac
             } else {
               this.notifications().showAlert(res[this.getErrorMessageKey()], mapValue[key] as string, NotificationTypes.ERROR);
             }
-          }
+          },
         );
       }
     }

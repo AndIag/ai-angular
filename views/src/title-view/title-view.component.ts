@@ -13,7 +13,7 @@ export class TitleViewComponent {
   @Input() position: TitlePosition = TitlePosition.CENTER;
 
   get positionClass(): { [klass: string]: any } {
-    let position: { [klass: string]: any } = {};
+    const position: { [klass: string]: any } = {};
     switch (this.position) {
       case TitlePosition.CENTER:
         position['text-center'] = true;

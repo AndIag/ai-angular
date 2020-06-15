@@ -81,10 +81,10 @@ export class DynamicFormBuilder {
   }
 
   addDuration(name: string, label?: string, validators?: ValidatorFn[],
-                     disabled?: boolean, extra?: DurationConfig): DynamicFormBuilder {
+              disabled?: boolean, extra?: DurationConfig): DynamicFormBuilder {
     const l = (label && this.translate) ? this.translations[label!] : label;
     if (extra) {
-      extra.seconds = (this.translate && !! extra.seconds) ? this.translations[extra.seconds] : extra.seconds;
+      extra.seconds = (this.translate && !!extra.seconds) ? this.translations[extra.seconds] : extra.seconds;
       extra.minutes = (this.translate && !!extra.minutes) ? this.translations[extra.minutes] : extra.minutes;
       extra.hours = (this.translate && !!extra.hours) ? this.translations[extra.hours] : extra.hours;
     }

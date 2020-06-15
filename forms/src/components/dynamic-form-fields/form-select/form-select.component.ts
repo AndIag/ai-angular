@@ -23,7 +23,7 @@ export class FormSelectComponent implements Field, AfterViewInit {
         if (value === null) {
           this.select!.nativeElement.options.selectedIndex = 0;
         }
-      }
+      },
     );
   }
 }

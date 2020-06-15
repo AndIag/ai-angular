@@ -1,9 +1,11 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import * as momentNs from 'moment';
 import {ISO_8601, Moment} from 'moment';
 import {WeekDayAction} from './week-day.action';
 
-const moment = momentNs;
+// tslint:disable-next-line:no-duplicate-imports
+import * as momentNS from 'moment';
+
+const moment = momentNS;
 
 @Component({
   selector: 'ai-week-day-selector',
@@ -41,9 +43,9 @@ export class WeekDaySelectorComponent implements OnInit {
 
   showDayActions = (day: string) => (!!this.actionPrimary || !!this.actionSecondary) && this.isDaySelected(day) && this.isDayEnabled(day);
   dayClass = (day: string) => ({
-    'selected': this.isDaySelected(day),
-    'disabled': !this.isDayEnabled(day),
-    'enabled': this.isDayEnabled(day),
+    selected: this.isDaySelected(day),
+    disabled: !this.isDayEnabled(day),
+    enabled: this.isDayEnabled(day),
   });
 
   isDaySelected = (day: string) => this.currentMoment!.isSame(this.momentFromDay(day), 'day');

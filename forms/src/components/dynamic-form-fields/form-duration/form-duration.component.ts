@@ -76,7 +76,7 @@ export class FormDurationComponent implements Field, AfterViewInit {
         if (value === null) {
           this.reset();
         }
-      }
+      },
     );
   }
 
@@ -111,8 +111,10 @@ export class FormDurationComponent implements Field, AfterViewInit {
 
   private notifyChanges() {
     if (this.duration.hours > 0 || this.duration.minutes > 0 || this.duration.seconds > 0) {
-      this.hiddenInput!.nativeElement.value = ('0' + this.duration.hours).slice(-2) + ':'
-        + ('0' + this.duration.minutes).slice(-2) + ':' + ('0' + this.duration.seconds).slice(-2);
+      const hours = `0${this.duration.hours}`.slice(-2);
+      const minutes = `0${this.duration.minutes}`.slice(-2);
+      const seconds = `0${this.duration.seconds}`.slice(-2);
+      this.hiddenInput!.nativeElement.value = `${hours}:${minutes}:${seconds}`;
     } else {
       this.hiddenInput!.nativeElement.value = null;
     }

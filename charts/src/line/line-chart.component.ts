@@ -5,7 +5,7 @@ import {LineChartValue} from './line-chart-value';
   selector: 'ai-line-chart',
   templateUrl: './line-chart.component.html',
   styleUrls: ['./line-chart.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LineChartComponent<X, Y> {
 

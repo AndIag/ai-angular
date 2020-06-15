@@ -5,7 +5,7 @@ import {BarChartValue} from './bar-chart-value';
   selector: 'ai-bar-chart',
   templateUrl: './bar-chart.component.html',
   styleUrls: ['./bar-chart.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BarChartComponent<X, Y> {
 

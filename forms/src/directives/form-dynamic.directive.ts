@@ -57,7 +57,7 @@ export class FormDynamicDirective implements Field, OnChanges, OnInit {
       const supportedTypes = Object.keys(components).join(', ');
       throw new Error(
         `Trying to use an unsupported type (${this.config!.type}).
-        Supported types: ${supportedTypes}`
+        Supported types: ${supportedTypes}`,
       );
     }
     const component = this.resolver.resolveComponentFactory<Field>(components[this.config!.type]);

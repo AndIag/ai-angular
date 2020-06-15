@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {AbstractControl, FormGroup} from '@angular/forms';
 import {Field, FieldConfig} from '../../../models/form-field';
 
-
 @Component({
   selector: 'form-checkbox',
   templateUrl: './form-checkbox.component.html',
@@ -22,7 +21,7 @@ export class FormCheckboxComponent implements Field {
       this.name = Math.random().toString(36).substr(2, 5);
     }
     return this.name;
-  };
+  }
 
   required = () => this.control && this.control.errors && this.control.errors.hasOwnProperty('required');
 

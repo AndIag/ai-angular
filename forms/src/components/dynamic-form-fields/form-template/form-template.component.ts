@@ -3,7 +3,6 @@ import {FormGroup} from '@angular/forms';
 import {Field, FieldConfig} from '../../../models/form-field';
 import {TemplateConfig} from '../../../models/template-config';
 
-
 @Component({
   selector: 'form-template',
   templateUrl: './form-template.component.html',

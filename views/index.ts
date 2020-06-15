@@ -19,7 +19,6 @@ export * from './src/title-view/title-position.enum';
 export * from './src/unavailable/unavailable.component';
 export * from './src/unavailable/unavailable.config';
 
-
 const components = [
   TitleViewComponent,
   EmptyViewComponent,
@@ -41,7 +40,7 @@ const components = [
   ],
   entryComponents: [
     ...components,
-  ]
+  ],
 })
 export class ViewsModule {
 }
