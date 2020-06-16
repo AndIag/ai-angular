@@ -1,0 +1,23 @@
+<div bsModal #modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true" (onHidden)="dismiss()">
+  <div class="modal-dialog" [ngClass]="[dialogSizeClass]">
+    <div class="modal-content">
+      <!--region Header-->
+      <div class="modal-header justify-content-center">
+        <h4 *ngIf="!!title" class="modal-title pull-left">{{ title }}</h4>
+        <button type="button" class="close pull-right" (click)="close()" aria-label="Close">
+          <span aria-hidden="true" class="material-icons">close</span>
+        </button>
+      </div>
+      <!--endregion-->
+      <!--region Content-->
+      <div class="modal-body text-left">
+        <dynamic-form #form [config]="config"
+                      (onSubmitted)="confirm($event)">
+        </dynamic-form>
+        <ng-content></ng-content>
+      </div>
+      <!--endregion-->
+    </div>
+  </div>
+</div>
