@@ -4,7 +4,7 @@
   </div>
 
   <label *ngIf="config?.label as label">{{ label }}</label>
-  <input type="number" class="form-control" [ngClass]="{'is-valid': control?.valid, 'is-invalid': control?.invalid}"
+  <input type="number" class="form-control" [ngClass]="{'is-valid': valid(), 'is-invalid': invalid()}"
          [attr.placeholder]="config?.placeholder + ( required() ? ' *' : '')"
          [formControlName]="config?.name">
 

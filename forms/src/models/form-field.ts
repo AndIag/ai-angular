@@ -12,6 +12,20 @@ export interface Field {
   control?: AbstractControl;
 }
 
+export class BaseField implements Field {
+  config?: FieldConfig;
+  group?: FormGroup;
+  control?: AbstractControl;
+
+  valid(): boolean {
+    return !!this.control && this.control.valid && !this.control.pristine;
+  }
+
+  invalid(): boolean {
+    return !this.control || (this.control.invalid && !this.control.pristine);
+  }
+}
+
 export interface FieldExtraConfig {
   duration?: DurationConfig;
   template?: TemplateConfig;

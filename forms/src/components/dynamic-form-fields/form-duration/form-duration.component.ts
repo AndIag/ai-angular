@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, ElementRef, Input, Renderer2, ViewChild} from '@angular/core';
 import {AbstractControl, FormGroup} from '@angular/forms';
-import {Field, FieldConfig} from '../../../models/form-field';
+import {BaseField, FieldConfig} from '../../../models/form-field';
 import {DurationConfig} from '../../../models/duration-config';
 
 export class Duration {
@@ -39,7 +39,7 @@ export class Duration {
   templateUrl: './form-duration.component.html',
   styleUrls: ['./form-duration.component.scss'],
 })
-export class FormDurationComponent implements Field, AfterViewInit {
+export class FormDurationComponent extends BaseField implements AfterViewInit {
   @ViewChild('hours', {static: true}) hours?: ElementRef;
   @ViewChild('minutes', {static: true}) minutes?: ElementRef;
   @ViewChild('seconds', {static: true}) seconds?: ElementRef;
@@ -58,6 +58,7 @@ export class FormDurationComponent implements Field, AfterViewInit {
   elements = (n: number) => this.extra() && this.extra()!.elements === n;
 
   constructor(private renderer: Renderer2) {
+    super();
   }
 
   ngAfterViewInit(): void {

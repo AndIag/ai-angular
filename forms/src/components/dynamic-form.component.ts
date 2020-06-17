@@ -28,7 +28,7 @@ export class DynamicFormComponent implements OnChanges, OnInit, AfterViewInit {
   }
 
   get valid(): boolean {
-    return this.form && this.form!.valid || false;
+    return this.form && this.form!.valid || this.form?.pristine || this.form!.untouched || false;
   }
 
   get value() {

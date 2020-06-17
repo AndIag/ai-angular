@@ -1,13 +1,13 @@
 import {Component} from '@angular/core';
 import {AbstractControl, FormGroup} from '@angular/forms';
-import {Field, FieldConfig} from '../../../models/form-field';
+import {BaseField, FieldConfig} from '../../../models/form-field';
 
 @Component({
   selector: 'form-input',
   templateUrl: './form-input.component.html',
   styleUrls: ['./form-input.component.scss'],
 })
-export class FormInputComponent implements Field {
+export class FormInputComponent extends BaseField {
   config?: FieldConfig;
   group?: FormGroup;
   control?: AbstractControl;

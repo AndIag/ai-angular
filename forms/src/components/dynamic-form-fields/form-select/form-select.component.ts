@@ -1,13 +1,13 @@
 import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
 import {AbstractControl, FormGroup} from '@angular/forms';
-import {Field, FieldConfig} from '../../../models/form-field';
+import {BaseField, FieldConfig} from '../../../models/form-field';
 
 @Component({
   selector: 'form-select',
   templateUrl: './form-select.component.html',
   styleUrls: ['./form-select.component.scss'],
 })
-export class FormSelectComponent implements Field, AfterViewInit {
+export class FormSelectComponent extends BaseField implements AfterViewInit {
   @ViewChild('select', {static: true}) select?: ElementRef;
 
   config?: FieldConfig;

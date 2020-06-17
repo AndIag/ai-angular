@@ -5,7 +5,7 @@
 
     <label *ngIf="config?.label as label">{{ label }}</label>
     <input type="text" class="form-control" autocomplete="off" autocapitalize="off" spellcheck="false"
-           [ngClass]="{'is-valid': control?.valid, 'is-invalid': control?.invalid}"
+           [ngClass]="{'is-valid': valid(), 'is-invalid': invalid()}"
            [attr.placeholder]="config?.placeholder + ( required() ? ' *' : '')"
            [formControlName]="config?.name"
            (keyup.enter)="onClickAction()">

@@ -4,7 +4,7 @@
     </div>
     <label *ngIf="config?.label as label">{{ label }}</label>
     <input type="time" class="form-control" min="00:00:00" max="99:00:00" step="15"
-           [ngClass]="{'is-valid': control?.valid, 'is-invalid': control?.invalid}"
+           [ngClass]="{'is-valid': valid(), 'is-invalid': invalid()}"
            [attr.placeholder]="config?.placeholder + ( control?.errors?.required ? ' *' : '')"
            [formControlName]="config?.name">
     <div class="input-group-append" *ngIf="config?.addon_right as addon_right">
