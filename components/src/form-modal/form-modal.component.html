@@ -12,7 +12,7 @@
       <!--endregion-->
       <!--region Content-->
       <div class="modal-body text-left">
-        <dynamic-form #form [config]="config"
+        <dynamic-form #form [config]="config" [debug]="debug"
                       (onSubmitted)="confirm($event)">
         </dynamic-form>
         <ng-content></ng-content>

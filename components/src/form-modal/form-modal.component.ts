@@ -3,11 +3,11 @@ import {ModalDirective} from 'ngx-bootstrap/modal';
 import {DynamicFormComponent, FieldConfig} from 'ai-angular/forms';
 
 @Component({
-  selector: 'ai-creation-dialog',
-  templateUrl: './creation-dialog.component.html',
-  styleUrls: ['./creation-dialog.component.scss'],
+  selector: 'ai-form-modal',
+  templateUrl: './form-modal.component.html',
+  styleUrls: ['./form-modal.component.scss'],
 })
-export class CreationDialogComponent<T> {
+export class FormModalComponent<T> {
 
   @ViewChild('modal') public modal?: ModalDirective;
   @ViewChild('form') public form?: DynamicFormComponent;
@@ -15,6 +15,7 @@ export class CreationDialogComponent<T> {
   @Input() public title?: string;
   @Input() public dialogSizeClass = 'modal-sm';
   @Input() public config: FieldConfig[] = [];
+  @Input() debug = false;
 
   @Output() public onSubmitted: EventEmitter<T>;
   @Output() public onDismissed: EventEmitter<boolean>;

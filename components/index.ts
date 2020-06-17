@@ -5,7 +5,7 @@ import {TooltipModule} from 'ngx-bootstrap/tooltip';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {WeekDaySelectorComponent} from './src/week-day-selector/week-day-selector.component';
 import {NavbarComponent} from './src/navbar/navbar.component';
-import {CreationDialogComponent} from './src/creation-dialog/creation-dialog.component';
+import {FormModalComponent} from './src/form-modal/form-modal.component';
 import {ViewsModule} from 'ai-angular/views';
 import {DynamicFormsModule} from 'ai-angular/forms';
 
@@ -19,12 +19,12 @@ export * from './src/week-day-selector/week-day.action';
 export * from './src/navbar/navbar.component';
 export * from './src/navbar/navbar.metadata';
 
-export * from './src/creation-dialog/creation-dialog.component';
+export * from './src/form-modal/form-modal.component';
 
 const components = [
   WeekDaySelectorComponent,
   NavbarComponent,
-  CreationDialogComponent,
+  FormModalComponent,
 ];
 
 @NgModule({
