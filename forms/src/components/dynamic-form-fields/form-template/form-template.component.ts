@@ -1,7 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, TemplateRef} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {Field, FieldConfig} from '../../../models/form-field';
-import {TemplateConfig} from '../../../models/template-config';
 
 @Component({
   selector: 'form-template',
@@ -9,8 +8,8 @@ import {TemplateConfig} from '../../../models/template-config';
   styleUrls: ['./form-template.component.scss'],
 })
 export class FormTemplateComponent implements Field {
-  config?: FieldConfig;
-  group?: FormGroup;
+  config!: FieldConfig;
+  group!: FormGroup;
 
-  template = (): TemplateConfig | undefined => this.config && this.config!.extra && this.config!.extra!.template;
+  template = (): TemplateRef<any> | null => this.config && this.config!.extra && this.config!.extra!.template?.template || null;
 }

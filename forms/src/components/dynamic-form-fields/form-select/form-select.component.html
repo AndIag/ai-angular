@@ -1,12 +1,12 @@
 <div class="dynamic-field input-group" [formGroup]="group">
-    <label *ngIf="config?.label as label">{{ label }}</label>
-    <select #select class="form-control" [formControlName]="config?.name"
+    <label *ngIf="config.label as label">{{ label }}</label>
+    <select #select class="form-control" [formControlName]="config.name"
             [ngClass]="{'is-valid': valid(), 'is-invalid': invalid(), 'text-placeholder': !control?.value}">
         <option value="" [selected]="true" class="text-placeholder">
-            {{ config?.placeholder + (control?.invalid ? ' *' : '') }}
+            {{ config.placeholder + (control?.invalid ? ' *' : '') }}
         </option>
-        <option *ngFor="let option of config?.options">
-            {{ config?.option_key ? option[config?.option_key] : option }}
+        <option *ngFor="let option of config.options">
+            {{ config.option_key ? option[config.option_key] : option }}
         </option>
     </select>
 </div>

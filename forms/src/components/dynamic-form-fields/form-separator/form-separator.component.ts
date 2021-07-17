@@ -8,6 +8,6 @@ import {Field, FieldConfig} from '../../../models/form-field';
   styleUrls: ['./form-separator.component.scss'],
 })
 export class FormSeparatorComponent implements Field {
-  config?: FieldConfig;
-  group?: FormGroup;
+  config!: FieldConfig;
+  group!: FormGroup;
 }

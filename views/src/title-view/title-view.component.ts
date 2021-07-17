@@ -9,7 +9,7 @@ import {TitlePosition} from './title-position.enum';
 })
 export class TitleViewComponent {
   @Input() title?: string;
-  @Input() textStyle?: string;
+  @Input() textStyle: string = "";
   @Input() position: TitlePosition = TitlePosition.CENTER;
 
   get positionClass(): { [klass: string]: any } {

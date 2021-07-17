@@ -9,9 +9,9 @@ import {BsLocaleService} from 'ngx-bootstrap/datepicker';
   styleUrls: ['./form-date.component.scss'],
 })
 export class FormDateComponent extends BaseField {
-  config?: FieldConfig;
-  group?: FormGroup;
-  control?: AbstractControl;
+  config!: FieldConfig;
+  group!: FormGroup;
+  control!: AbstractControl;
 
   required = () => this.control && this.control!.errors && this.control!.errors.hasOwnProperty('required');
 

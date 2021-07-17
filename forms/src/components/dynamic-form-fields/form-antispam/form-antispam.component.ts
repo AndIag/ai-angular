@@ -10,6 +10,6 @@ export const ANTISPAM_KEY = 'antispam';
   styleUrls: ['./form-antispam.component.scss'],
 })
 export class FormAntiSpamComponent implements Field {
-  config?: FieldConfig;
-  group?: FormGroup;
+  config!: FieldConfig;
+  group!: FormGroup;
 }

@@ -10,9 +10,9 @@ import {BaseField, FieldConfig} from '../../../models/form-field';
 export class FormSelectComponent extends BaseField implements AfterViewInit {
   @ViewChild('select', {static: true}) select?: ElementRef;
 
-  config?: FieldConfig;
-  group?: FormGroup;
-  control?: AbstractControl;
+  config!: FieldConfig;
+  group!: FormGroup;
+  control!: AbstractControl;
 
   ngAfterViewInit(): void {
     /**

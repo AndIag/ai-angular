@@ -20,7 +20,7 @@ export interface NavbarItem {
   icon: string;  // Material icon
   position: NavbarItemPosition;
   mode?: NavbarItemPresentationMode;
-  image?: string;
-  style?: string;
+  image: string;
+  style: string;
   path?: string;
 }

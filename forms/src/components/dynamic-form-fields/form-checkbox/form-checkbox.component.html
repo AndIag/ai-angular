@@ -1,8 +1,8 @@
 <div class="dynamic-field custom-control custom-checkbox" [formGroup]="group">
   <input id="checkbox_{{random()}}" type="checkbox" class="custom-control-input"
-         [formControlName]="config?.name"
+         [formControlName]="config.name"
          (change)="onChange()">
   <label class="custom-control-label" for="checkbox_{{random()}}">
-    {{ config?.label + (required() ? ' *' : '') }}
+    {{ config.label + (required() ? ' *' : '') }}
   </label>
 </div>

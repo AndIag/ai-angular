@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
+import {catchError, Observable, throwError} from 'rxjs';
 import {Router} from '@angular/router';
-import {catchError} from 'rxjs/internal/operators';
 import HttpStatusCode from '../utils/http-status-codes';
 
 export const NOT_FOUND = 'not-found';
@@ -21,9 +20,9 @@ export class HttpNotFoundInterceptor implements HttpInterceptor {
                 (err: HttpErrorResponse) => {
                     if (err.status === HttpStatusCode.HTTP_404_NOT_FOUND) {
                         this.router.navigate([NOT_FOUND]);
-                        return throwError(err);
+                        return throwError(() => err);
                     }
-                    return throwError(err);
+                    return throwError(() => err);
                 }));
     }
 }

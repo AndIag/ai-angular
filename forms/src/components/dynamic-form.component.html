@@ -2,11 +2,11 @@
   <ng-container *ngFor="let field of config;" formDynamic
                 [group]="form"
                 [config]="field"
-                [control]="form?.controls[field.name]">
+                [control]="form.controls[field.name]">
   </ng-container>
 </form>
 <div class="debug-dynamic-form" *ngIf="debug">
-  <div>Valid: {{ form?.valid }}</div>
-  <div>{{ form?.value | json }}</div>
+  <div>Valid: {{ form.valid }}</div>
+  <div>{{ form.value | json }}</div>
 </div>
 

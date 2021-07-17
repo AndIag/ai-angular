@@ -45,10 +45,10 @@ export class FormDurationComponent extends BaseField implements AfterViewInit {
   @ViewChild('seconds', {static: true}) seconds?: ElementRef;
   @ViewChild('hiddenInput', {static: true}) hiddenInput?: ElementRef;
 
-  @Input() control?: AbstractControl;
+  @Input() control!: AbstractControl;
 
-  config?: FieldConfig;
-  group?: FormGroup;
+  config!: FieldConfig;
+  group!: FormGroup;
 
   duration: Duration = new Duration();
   private _disabled = false; // Avoid constant updates

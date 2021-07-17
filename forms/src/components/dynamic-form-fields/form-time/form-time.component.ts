@@ -8,7 +8,7 @@ import {BaseField, FieldConfig} from '../../../models/form-field';
   styleUrls: ['./form-time.component.scss'],
 })
 export class FormTimeComponent extends BaseField {
-  config?: FieldConfig;
-  group?: FormGroup;
-  control?: AbstractControl;
+  config!: FieldConfig;
+  group!: FormGroup;
+  control!: AbstractControl;
 }

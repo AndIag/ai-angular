@@ -35,9 +35,9 @@ const components: { [type: string]: Type<Field> } = {
   selector: '[formDynamic]',
 })
 export class FormDynamicDirective implements Field, OnChanges, OnInit {
-  @Input() config?: FieldConfig;
-  @Input() group?: FormGroup;
-  @Input() control?: AbstractControl;
+  @Input() config!: FieldConfig;
+  @Input() group!: FormGroup;
+  @Input() control!: AbstractControl;
 
   component?: ComponentRef<Field>;
 

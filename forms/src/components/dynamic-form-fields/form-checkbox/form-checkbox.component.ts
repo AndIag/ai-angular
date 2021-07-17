@@ -8,9 +8,9 @@ import {Field, FieldConfig} from '../../../models/form-field';
   styleUrls: ['./form-checkbox.component.scss'],
 })
 export class FormCheckboxComponent implements Field {
-  config?: FieldConfig;
-  group?: FormGroup;
-  control?: AbstractControl;
+  config!: FieldConfig;
+  group!: FormGroup;
+  control!: AbstractControl;
 
   /**
    * Required logic to set a unique name to each FormCheckbox instance.

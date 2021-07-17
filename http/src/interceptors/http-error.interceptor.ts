@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
+import {catchError, Observable, throwError} from 'rxjs';
 import {Router} from '@angular/router';
-import {catchError} from 'rxjs/internal/operators';
 import HttpStatusCode from '../utils/http-status-codes';
 
 export const UNAVAILABLE = 'unavailable';
@@ -24,9 +23,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                         || err.status === HttpStatusCode.NO_STATE) {
 
                         this.router.navigate([UNAVAILABLE]);
-                        return throwError(err);
+                        return throwError(() => err);
                     }
-                    return throwError(err);
+                    return throwError(() => err);
                 }));
     }
 }

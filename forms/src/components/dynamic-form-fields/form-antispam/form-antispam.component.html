@@ -2,8 +2,8 @@
   <!-- Makes a invisible label to prevent spam bots https://twitter.com/smashingmag/status/1084825001755320323 -->
   <label class="visually-hidden">
     Don't fill this in!
-    <input [formControlName]="config?.name" type="text" name="spam_one" tabindex="-1"/>
+    <input [formControlName]="config.name" type="text" name="spam_one" tabindex="-1"/>
   </label>
 
-  <input type="hidden" [formControlName]="config?.name" name="spam_two">
+  <input type="hidden" [formControlName]="config.name" name="spam_two">
 </div>

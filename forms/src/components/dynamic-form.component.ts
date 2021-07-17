@@ -17,7 +17,7 @@ export class DynamicFormComponent implements OnChanges, OnInit, AfterViewInit {
   @Output() onSubmitted: EventEmitter<any>;
   @Output() onChanges: EventEmitter<any>;
 
-  form?: FormGroup;
+  form!: FormGroup;
 
   get controls(): FieldConfig[] {
     return this.config.filter(({type}) => type !== 'button' && type !== 'separator');

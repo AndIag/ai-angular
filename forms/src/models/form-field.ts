@@ -4,8 +4,8 @@ import {DynamicFormAction} from './dynamic-form-action';
 import {DurationConfig} from './duration-config';
 
 export interface Field {
-  config?: FieldConfig;
-  group?: FormGroup;
+  config: FieldConfig;
+  group: FormGroup;
   /**
    * Used when access to control are required in form-***.component
    */
@@ -13,9 +13,9 @@ export interface Field {
 }
 
 export class BaseField implements Field {
-  config?: FieldConfig;
-  group?: FormGroup;
-  control?: AbstractControl;
+  config!: FieldConfig;
+  group!: FormGroup;
+  control!: AbstractControl;
 
   valid(): boolean {
     return !!this.control && this.control.valid && !this.control.pristine;

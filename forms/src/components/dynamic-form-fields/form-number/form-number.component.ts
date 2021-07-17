@@ -8,9 +8,9 @@ import {BaseField, FieldConfig} from '../../../models/form-field';
   styleUrls: ['./form-number.component.scss'],
 })
 export class FormNumberComponent extends BaseField {
-  config?: FieldConfig;
-  group?: FormGroup;
-  control?: AbstractControl;
+  config!: FieldConfig;
+  group!: FormGroup;
+  control!: AbstractControl;
 
   required = () => this.control && this.control!.errors && this.control!.errors.hasOwnProperty('required');
 }
